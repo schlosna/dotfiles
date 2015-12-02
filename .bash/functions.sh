@@ -53,6 +53,7 @@ function gco { git checkout "$@"; }
 function gdm { GIT_EXTERNAL_DIFF='diffmerge-git-wrapper' git diff "$@"; }
 function gitup { cd $(git rev-parse --show-toplevel); }
 function gitx { open -a gitx .; }
+function gqpull { g q && g pull && g q pop; }
 function gvim { mvim "$@"; }
 function gz { gzip -v "$@"; }
 function hgs { hg status "$@"; }
