@@ -8,7 +8,7 @@
 
 # Home brew prefix (i.e `brew --prefix`)
 #export BREW_HOME=/usr/local
-export BREW_HOME=/opt/homebrew
+export BREW_HOME=/opt/brew
 [ -n "${DEBUG}"  ] && echo "setup homebrew BREW_HOME=${BREW_HOME}"
 
 ####################
