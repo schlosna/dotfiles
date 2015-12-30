@@ -83,11 +83,6 @@ if type -P rbenv &>/dev/null; then
     eval "$(rbenv init -)";
 fi
 
-
-#if type -P docker-machine &>/dev/null; then
-#    eval "$(docker-machine env default)"
-#fi
-
 ####################
 # Paths
 ####################
