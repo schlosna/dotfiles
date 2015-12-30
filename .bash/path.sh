@@ -37,7 +37,10 @@ PATH="${PATH}:${BREW_HOME}/share/npm/bin"
 
 IL_SCRIPTS_HOME="${HOME}/src/il_scripts"
 PATH="${PATH}:${IL_SCRIPTS_HOME}"
-source "${IL_SCRIPTS_HOME}/.bash_completion.d/il_completion"
+
+if [ -f "${IL_SCRIPTS_HOME}/.bash_completion.d/il_completion" ]; then
+    source "${IL_SCRIPTS_HOME}/.bash_completion.d/il_completion"
+fi
 
 export PATH
 [ -n "${DEBUG}"  ] && echo "setup PATH=${PATH}"
