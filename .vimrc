@@ -45,7 +45,8 @@ set lazyredraw
 set linebreak
 "set lines=60
 set list                                                     " show trailing whitespace
-set listchars=tab:▸\ ,trail:▫
+"set listchars=tab:▸\ ,trail:▫
+set listchars=tab:»·,trail:¶
 set magic
 set matchtime=2
 set more
