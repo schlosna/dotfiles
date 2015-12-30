@@ -1,3 +1,6 @@
+[submodule ".bash/dircolors-solarized"]
+	path = .bash/dircolors-solarized
+	url = https://github.com/seebi/dircolors-solarized.git
 [submodule ".vim/bundle/xmledit"]
 	path = .vim/bundle/xmledit
 	url = https://github.com/sukima/xmledit.git
