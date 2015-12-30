@@ -1,9 +1,6 @@
 [submodule ".bash/dircolors-solarized"]
 	path = .bash/dircolors-solarized
 	url = https://github.com/seebi/dircolors-solarized.git
-[submodule ".vim/bundle/xmledit"]
-	path = .vim/bundle/xmledit
-	url = https://github.com/sukima/xmledit.git
 [submodule ".vim/bundle/a.vim"]
 	path = .vim/bundle/a.vim
 	url = https://github.com/vim-scripts/a.vim.git
@@ -94,3 +91,6 @@
 [submodule ".vim/bundle/vundle"]
 	path = .vim/bundle/vundle
 	url = https://github.com/gmarik/vundle.git
+[submodule ".vim/bundle/xmledit"]
+	path = .vim/bundle/xmledit
+	url = https://github.com/sukima/xmledit.git
