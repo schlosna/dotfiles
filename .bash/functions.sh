@@ -33,6 +33,8 @@ function calc { awk "BEGIN{ print $@ }"; }
 function catskim { cat "${@}" | enscript -p - | open -f -a Skim; }
 #function cls { clear; }
 function cdd { pushd "$@"; }
+function cpr { rsync -ahv --progress "$@"; }
+function cs { cd $(pwd | sed "s#/Volumes/git/#${HOME}/src/#"); }
 function dev { cd ~/Documents/dev/$1; }
 function du2 { du -csh "$@" | egrep '^[0-9.]+M' | sort -n ; }
 function eject { drutil tray eject; }
@@ -46,7 +48,7 @@ function getpdf {  wget -r -l1 -A.pdf "$@"; }
 function gf { gvim `f "$@"`; }
 function gl { git log "$@"; }
 function gmu { cd ~/Documents/GMU/$1; }
-function gs { git status "$@"; }
+function gs { git status -uno "$@"; }
 function gst { git status "$@"; }
 function gcm { git commit -a -v "$@"; }
 function gco { git checkout "$@"; }
