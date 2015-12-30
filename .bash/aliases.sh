@@ -26,7 +26,6 @@ alias pstree="pstree -w "
 alias rm="rm -d "
 #alias vi="gvim "
 #alias vim="gvim "
-alias ssh="ssh -YC "
 
 complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null \
 	|| complete -o default -o nospace -F _git g
