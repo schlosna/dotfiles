@@ -83,6 +83,8 @@ if type -P rbenv &>/dev/null; then
     eval "$(rbenv init -)";
 fi
 
+[[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
+
 ####################
 # Paths
 ####################
