@@ -27,7 +27,7 @@ fi
 function .. { cd ..; }
 #function a { ack "$@"; }
 function blog { git log --date-order --graph --format="%C(green)%H %C(reset)%C(yellow)%an%C(reset) %C(cyan bold)%aI%C(reset)%C(red bold)%d%C(reset) %s %C(cyan bold)%N%Creset" "$@"; }
-function brewup { brew update ; echo "Updated, Outdated:"; brew outdated ; }
+function brewup { brew update ; echo ; echo "Updated, Outdated:"; brew outdated ; }
 function bsh { java -cp /opt/local/share/java/bsh.jar bsh.Interpreter "$@"; }
 function calc { awk "BEGIN{ print $@ }"; }
 function catskim { cat "${@}" | enscript -p - | open -f -a Skim; }
