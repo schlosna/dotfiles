@@ -1,0 +1,52 @@
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+.Trash
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### Home directory
+/.CFUserTextEncoding
+/.dropbox
+/.eclipse
+/.gem
+/.jmc
+/.oracle_jre_usage
+/.ssh
+/.gradle/caches
+/.ivy2
+/.m2/repository
+/.yjp
+/Applications
+/Box Sync
+/Desktop
+/Documents
+/Dropbox
+/Library
+/Movies
+/Music
+/Pictures
+/Public
+/VirtualBox VMs
+/src
