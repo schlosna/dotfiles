@@ -34,7 +34,7 @@ function catskim { cat "${@}" | enscript -p - | open -f -a Skim; }
 #function cls { clear; }
 function cdd { pushd "$@"; }
 function cpr { rsync -ahv --progress "$@"; }
-function cs { cd $(pwd | sed "s#/Volumes/git/#${HOME}/src/#"); }
+function cs { cd $(pwd | sed "s#/Volumes/git/#${HOME}/src/#"); clear; }
 function dev { cd ~/Documents/dev/$1; }
 function du2 { du -csh "$@" | egrep '^[0-9.]+M' | sort -n ; }
 function eject { drutil tray eject; }
