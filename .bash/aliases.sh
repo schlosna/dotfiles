@@ -23,7 +23,6 @@ alias irb='irb --readline -r irb/completion'
 alias lc="lunchy "
 alias ln="ln -s "
 alias pstree="pstree -w "
-alias rm="rm -d "
 #alias vi="gvim "
 #alias vim="gvim "
 
