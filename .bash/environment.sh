@@ -89,6 +89,8 @@ fi
 
 [[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
 
+export DOCKER_HOST=tcp://localhost:2375
+
 ####################
 # Paths
 ####################
