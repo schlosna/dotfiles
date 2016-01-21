@@ -36,12 +36,16 @@ if [ -n "${BREW_HOME}" ]; then
         . ${BREW_HOME}/Library/Contributions/brew_bash_completion.sh
     fi
 
-    if [ -f ${BREW_HOME}/share/bash-completion/bash_completion ]; then
-        . ${BREW_HOME}/share/bash-completion/bash_completion
-    fi
-
-    if [ -f ${BREW_HOME}/etc/bash_completion ]; then
-        . ${BREW_HOME}/etc/bash_completion
+    if [ "${BASH_VERSINFO}" -gt 3 ]; then
+        # bash-completion2 for bash 4.0+
+        if [ -f ${BREW_HOME}/share/bash-completion/bash_completion ]; then
+            . ${BREW_HOME}/share/bash-completion/bash_completion
+        fi
+    else
+        # Bash 3.x compatible
+        if [ -f ${BREW_HOME}/etc/bash_completion ]; then
+            . ${BREW_HOME}/etc/bash_completion
+        fi
     fi
 
     # http://wiki.github.com/joelthelion/autojump
@@ -88,14 +92,17 @@ fi
 ####################
 # Paths
 ####################
-shopt -s autocd
 shopt -s cdspell
-shopt -s dirspell
 shopt -s dotglob
 shopt -s extglob
-shopt -s globstar
 shopt -s progcomp
 shopt -s nocaseglob
+
+if [ "${BASH_VERSINFO}" -gt 3 ]; then
+    shopt -s autocd
+    shopt -s globstar
+    shopt -s dirspell
+fi
 
 export FIGNORE=\~:.bak:.o
 
@@ -163,7 +170,6 @@ if [ "$TERM" = "screen" -a ! "$SHOWED_SCREEN_MESSAGE" = "true" ]; then
     fi
     export SHOWED_SCREEN_MESSAGE="true"
 fi
-
 
 
 # From http://pastebin.com/m64be26a5 via http://reddit.com/info/697cu/comments/
@@ -305,7 +311,12 @@ local DEFAULT="\e[m\]"
             PROMPT_COLOR="37;44m"
         fi
         #SIMPLE_PROMPT="[\u@\h] \w \$(parse_git_branch)\$"
-        SIMPLE_PROMPT="[${USER}@\h:\w$(__git_ps1 ' (%s)')]\$"
+
+        if type __git_ps1 &>/dev/null; then
+            SIMPLE_PROMPT="[${USER}@\h:\w$(__git_ps1 ' (%s)')]\$"
+        else
+            SIMPLE_PROMPT="[${USER}@\h:\w]\$"
+        fi
         #PS1="${PRE_COLOR}${PROMPT_COLOR}${SIMPLE_PROMPT}${POST_COLOR}${DEFAULT} "
         PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\[\033[m\]${POST_COLOR}${DEFAULT} "
         #PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\[\033[m\]${POST_COLOR}${DEFAULT} "
