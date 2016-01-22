@@ -28,20 +28,33 @@ Temporary Items
 
 ### Home directory
 /.CFUserTextEncoding
+/.IdeaIC15
+/.cache
+/.docker
 /.dropbox
 /.eclipse
 /.gem
-/.jmc
-/.oracle_jre_usage
-/.ssh
-/.gradle/caches
+/.gradle
+/.gvm
 /.ivy2
+/.jenv
+/.jmc
 /.m2/repository
+/.npm
+/.oracle_jre_usage
+/.rbenv
+/.sqldeveloper
+/.squirrel-sql
+/.ssh
+/.subversion
+/.vagrant.d
+/.vim/.netrwhist
 /.yjp
 /Applications
 /Box Sync
 /Desktop
 /Documents
+/Downloads
 /Dropbox
 /Library
 /Movies
@@ -50,3 +63,4 @@ Temporary Items
 /Public
 /VirtualBox VMs
 /src
+/tmp
