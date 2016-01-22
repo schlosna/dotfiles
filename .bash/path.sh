@@ -11,6 +11,8 @@
 export BREW_HOME=/opt/brew
 [ -n "${DEBUG}"  ] && echo "setup homebrew BREW_HOME=${BREW_HOME}"
 
+export DASH_HOME=/opt/dash
+
 ####################
 # Java Path
 ####################
@@ -34,6 +36,7 @@ PATH="${BREW_HOME}/bin:${PATH}"
 PATH="${PATH}:${HOME}/bin"
 PATH="${PATH}:${HOME}/.jenv/bin"
 PATH="${PATH}:${BREW_HOME}/share/npm/bin"
+PATH="${PATH}:${DASH_HOME}/bin"
 
 IL_SCRIPTS_HOME="${HOME}/src/il_scripts"
 PATH="${PATH}:${IL_SCRIPTS_HOME}"

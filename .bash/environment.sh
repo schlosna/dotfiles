@@ -66,8 +66,8 @@ if [ -n "${BREW_HOME}" ]; then
     export HOMEBREW_CASK_OPTS="--appdir=/Applications --binarydir=${BREW_HOME}/bin "
 
     if type -P brew-cask &>/dev/null; then
-      alias cask="brew-cask "
-      complete -o bashdefault -o default -F _brew_cask cask
+        alias cask="brew-cask "
+        complete -o bashdefault -o default -F _brew_cask cask
     fi
 fi
 
