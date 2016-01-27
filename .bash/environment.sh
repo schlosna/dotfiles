@@ -96,6 +96,7 @@ if [ "${BASH_VERSINFO}" -gt 3 ]; then
     shopt -s dirspell
 fi
 
+export CDPATH=".:~:/Volumes/git:${HOME}/Documents"
 export FIGNORE=\~:.bak:.o
 
 ####################
