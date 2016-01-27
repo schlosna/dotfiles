@@ -1,16 +1,35 @@
 #!/bin/bash
 
+__log_info() {
+    echo " [INFO]  - ${1}"
+}
+
+__log_debug() {
+    [ -n "${DEBUG}" ] && echo " [DEBUG] - ${1}" 1>&2
+}
+
+import() {
+    if [ -f "$@" ]; then
+        . "$@"
+        __log_debug "imported '$@'"
+    fi
+}
+
 [ -n "${TRACE_BASH}" ] && set -x
-[ -n "${DEBUG}" ] && echo "began reading ${HOME}/.bashrc"
+__log_debug "Began reading ${HOME}/.bashrc"
 
 # Always setup PATH
-[ -f ~/.bash/path.sh ] && . ~/.bash/path.sh
+import "${HOME}/.bash/path.sh"
 
 if [ -n "${PS1}" ]; then
-# Setup interactive shell
-    [ -f ~/.bash/environment.sh ] && . ~/.bash/environment.sh
-    [ -f ~/.bash/aliases.sh ] && . ~/.bash/aliases.sh
-    [ -f ~/.bash/functions.sh ] && . ~/.bash/functions.sh
+    # Setup interactive shell
+    import "${HOME}/.bash/environment.sh"
+    import "${HOME}/.bash/aliases.sh"
+    import "${HOME}/.bash/functions.sh"
 fi
 
-[ -n "${DEBUG}" ] && echo "finished reading ${HOME}/.bashrc"
+__log_debug "Finished reading ${HOME}/.bashrc"
+
+unset -f __log_info
+unset -f __log_debug
+

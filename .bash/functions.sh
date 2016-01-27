@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -n "${DEBUG}" ] && echo begin reading ${HOME}/.bash/functions.sh
+__log_debug "begin reading ${HOME}/.bash/functions.sh"
 
 if type -P brew &>/dev/null; then
     BREW_HOME=$(brew --prefix)
@@ -11,7 +11,7 @@ if [ -x ${LOCAL_BIN}/gls ]; then
     LS=${LOCAL_BIN}/gls
     LS_OPTS="--color=auto ${LS_OPTS}"
 elif [ -x ${LOCAL_BIN}/ls ]; then
-# See if manually installed 
+# See if manually installed
     LS=${LOCAL_BIN}/ls
     LS_OPTS="--color=auto ${LS_OPTS}"
 else
@@ -19,19 +19,15 @@ else
     LS=ls
     LS_OPTS="-G ${LS_OPTS}"
 fi
-[ -n "${DEBUG}" ] && echo "PATH=${PATH} BREW_HOME=${BREW_HOME} LOCAL_BIN=${LOCAL_BIN} LS=${LS}"
-
-
+__log_debug "PATH=${PATH} BREW_HOME=${BREW_HOME} LOCAL_BIN=${LOCAL_BIN} LS=${LS}"
 #[[ "/bin/ls" != "${LS}" && ${TERM} == *color* ]] && LS_OPTS="--color=auto ${LS_OPTS}"
 
 function .. { cd ..; }
-#function a { ack "$@"; }
 function blog { git log --date-order --graph --format="%C(green)%H %C(reset)%C(yellow)%an%C(reset) %C(cyan bold)%aI%C(reset)%C(red bold)%d%C(reset) %s %C(cyan bold)%N%Creset" "$@"; }
 function brewup { brew update ; echo ; echo "Updated, Outdated:"; brew outdated ; }
 function bsh { java -cp /opt/local/share/java/bsh.jar bsh.Interpreter "$@"; }
 function calc { awk "BEGIN{ print $@ }"; }
 function catskim { cat "${@}" | enscript -p - | open -f -a Skim; }
-#function cls { clear; }
 function cdd { pushd "$@"; }
 function cpr { rsync -ahv --progress "$@"; }
 function cs { cd $(pwd | sed "s#/Volumes/git/#${HOME}/src/#"); clear; }
@@ -42,11 +38,9 @@ function ff { find . -name "$@" -print; }
 function gas { git status --porcelain | grep "^M" | sed 's/^M. //' | xargs git add; git status "$@"; }
 function gc { git clone "$@" && cd $(basename $@ | sed 's/\..*//g'); }
 function getsite { wget -r --no-host-directories --no-parent --level=5 --user-agent='Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; rv:1.6b) Gecko/20031213 Camino/0.7+' "$@"; }
-#function getpdf {  wget -r --no-host-directories --no-directories --no-parent --level=1 --user-agent='Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; rv:1.6b) Gecko/20031213 Camino/0.7+' -A.pdf "$@"; }
 function getpdf {  wget -r -l1 -A.pdf "$@"; }
 function gf { gvim `f "$@"`; }
 function gl { git log "$@"; }
-function gmu { cd ~/Documents/GMU/$1; }
 function gs { git status -uno "$@"; }
 function gst { git status "$@"; }
 function gcm { git commit -a -v "$@"; }
@@ -63,7 +57,7 @@ function hlog { git log --date-order --all --graph --format="%C(green)%H%C(reset
 function jboss { cd ${JBOSS_HOME}; }
 function jc { jar cvf "$1.jar" "$1"; }
 function jenv-home { export JAVA_HOME=$(jenv javahome); echo "JAVA_HOME=${JAVA_HOME}"; }
-function jslint { 
+function jslint {
     gjslint "$@";
     jshint "$@";
 }
@@ -116,7 +110,6 @@ function tab() {
          end tell
         end tell"
 }
-
 function tcpflow { sudo tcpflow -c -i en0 "$@"; }
 function todo { gvim "$HOME/todo/todo.txt"; }
 function tf { tail -f "$@"; }
@@ -130,6 +123,5 @@ function up { cd ..; ls; }
 function viewgz { tar tfz "$@"; }
 function wgetall { wget -r -nd -np -l1 -A "*.$2" "$1"; }
 function which { type -a "$@"; }
-#function which { (alias; declare -f) | /opt/local/bin/gwhich --tty-only --read-alias --read-functions --show-tilde --show-dot "$@"; } 
 
-[ -n "${DEBUG}"  ] && echo finished reading ${HOME}/.bash/functions.sh
+__log_debug "finished reading ${HOME}/.bash/functions.sh"

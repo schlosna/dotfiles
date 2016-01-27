@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -n "${DEBUG}" ] && echo begin reading ${HOME}/.bash/environment.sh
+__log_debug "Begin reading ${HOME}/.bash/environment.sh"
 
 ####################
 # directory colors
@@ -21,42 +21,34 @@ bind -m vi-insert "\C-l":clear-screen
 # ^n cycle through the list of partial matches
 #bind -m vi-insert "\C-n":menu-complete
 
+
 if [ -n "${BREW_HOME}" ]; then
-    [ -n "${DEBUG}" ] && echo "DEBUG already set BREW_HOME=${BREW_HOME}"
+    __log_debug "Already set BREW_HOME=${BREW_HOME}"
 else
     if type -P brew &>/dev/null; then
         BREW_HOME=$(brew --prefix)
-        [ -n "${DEBUG}" ] && echo "DEBUG set BREW_HOME=${BREW_HOME}"
+        __log_debug "Set BREW_HOME=${BREW_HOME}"
     fi
 fi
 
 if [ -n "${BREW_HOME}" ]; then
 ### BASH Completion for homebrew
-    if [ -f ${BREW_HOME}/Library/Contributions/brew_bash_completion.sh ]; then
-        . ${BREW_HOME}/Library/Contributions/brew_bash_completion.sh
-    fi
+    import "${BREW_HOME}/Library/Contributions/brew_bash_completion.sh"
 
     if [ "${BASH_VERSINFO}" -gt 3 ]; then
         # bash-completion2 for bash 4.0+
-        if [ -f ${BREW_HOME}/share/bash-completion/bash_completion ]; then
-            . ${BREW_HOME}/share/bash-completion/bash_completion
-        fi
+        import "${BREW_HOME}/share/bash-completion/bash_completion"
     else
         # Bash 3.x compatible
-        if [ -f ${BREW_HOME}/etc/bash_completion ]; then
-            . ${BREW_HOME}/etc/bash_completion
-        fi
+        import "${BREW_HOME}/etc/bash_completion"
     fi
 
     # http://wiki.github.com/joelthelion/autojump
-    if [ -f ${BREW_HOME}/etc/autojump.sh ]; then
-        unset PROMPT_COMMAND
-        . ${BREW_HOME}/etc/autojump.sh
-    fi
+    import "${BREW_HOME}/etc/autojump.sh"
+    import "${BREW_HOME}/etc/profile.d/autojump.sh"
 
-    #if [ -f ${BREW_HOME}/etc/bash_completion.d/git-prompt.sh ]; then
-    #    . ${BREW_HOME}/etc/bash_completion.d/git-prompt.sh
-    #fi
+    import "${BREW_HOME}/etc/bash_completion.d/git-prompt.sh"
+    import "${BREW_HOME}/opt/bash-git-prompt/share/gitprompt.sh"
 
     if type -P insta &>/dev/null; then
         PROG=insta source "${BREW_HOME}/Library/Taps/palantir/homebrew-insta/autocomplete/bash_autocomplete"
@@ -72,12 +64,10 @@ if [ -n "${BREW_HOME}" ]; then
 fi
 
 ### BASH Completion from MacPorts
-if [ -f /opt/local/etc/bash_completion ]; then
-    . /opt/local/etc/bash_completion
-fi
+import "/opt/local/etc/bash_completion"
 
 # iterm2 shell integration
-[ -f "~/.bash/iterm2_shell_integration.bash" ] && . "~/.bash/iterm2_shell_integration.bash"
+import "${HOME}/.bash/iterm2_shell_integration.bash"
 
 if type -P jenv &>/dev/null; then
     eval "$(jenv init - --no-rehash)";
@@ -120,7 +110,7 @@ export HISTCONTROL=ignoredups
 # Mail
 export MAIL=/var/mail/$USER
 MAILPATH=/var/spool/mail/$USER
-for i in ~/Mail/[^.]*
+for i in ${HOME}/Mail/[^.]*
 do
     MAILPATH=$MAILPATH:$i'?You have new mail in your ${_##*/} folder'
 done
@@ -250,7 +240,6 @@ function elite
     PS2="$LIGHT_CYAN-$CYAN-$GRAY-$NO_COLOUR "
 }
 
-export GIT_PS1_SHOW_DIRTYSTATE=1
 
 function make-prompt {
 ####################
@@ -329,13 +318,10 @@ local DEFAULT="\e[m\]"
     export PS1
 }
 
-export PROMPT_COMMAND=make-prompt;${PROMPT_COMMAND}
+export GIT_PS1_SHOW_DIRTYSTATE=1
+GIT_PROMPT_ONLY_IN_REPO=1
+export PROMPT_COMMAND="make-prompt; ${PROMPT_COMMAND}"
+__log_debug "PROMPT_COMMAND = '${PROMPT_COMMAND}'"
+__log_debug "PS1 = '${PS1}'"
 
-    if [ -f ${BREW_HOME}/opt/bash-git-prompt/share/gitprompt.sh ]; then
-        GIT_PROMPT_ONLY_IN_REPO=1
-        . ${BREW_HOME}/opt/bash-git-prompt/share/gitprompt.sh
-        echo PS1="$PS1"
-        echo PROMPT_COMMAND="$PROMPT_COMMAND"
-    fi
-
-[ -n "${DEBUG}" ] && echo finished reading ${HOME}/.bash/environment.sh
+__log_debug "Finished reading ${HOME}/.bash/environment.sh"

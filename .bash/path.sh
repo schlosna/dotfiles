@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[ -n "${DEBUG}"  ] && echo begin reading ${HOME}/.bash/path.sh
+__log_debug "Begin reading ${HOME}/.bash/path.sh"
 
 ####################
 # Export environment variables
@@ -9,7 +9,7 @@
 # Home brew prefix (i.e `brew --prefix`)
 #export BREW_HOME=/usr/local
 export BREW_HOME=/opt/brew
-[ -n "${DEBUG}"  ] && echo "setup homebrew BREW_HOME=${BREW_HOME}"
+__log_debug "Using BREW_HOME=${BREW_HOME}"
 
 export DASH_HOME=/opt/dash
 
@@ -29,7 +29,7 @@ export IVY_SETTINGS=/Users/davids/.ivy2/ivy-settings.xml
 # Executable Search Path
 ####################
 
-[ -n "${DEBUG}"  ] && echo "original PATH=${PATH}"
+__log_debug "Original PATH=${PATH}"
 PATH="/opt/local/bin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
 PATH="${BREW_HOME}/bin:${PATH}"
@@ -46,12 +46,12 @@ if [ -f "${IL_SCRIPTS_HOME}/.bash_completion.d/il_completion" ]; then
 fi
 
 export PATH
-[ -n "${DEBUG}"  ] && echo "setup PATH=${PATH}"
+__log_debug "PATH=${PATH}"
 
 ####################
 # Manual Search Path
 ####################
 export MANPATH="/usr/local/share/man:${BREW_HOME}/share/man:/usr/share/man:${MANPATH}"
-[ -n "${DEBUG}"  ] && echo "setup MANPATH=${MANPATH}"
+__log_debug "MANPATH=${MANPATH}"
 
-[ -n "${DEBUG}"  ] && echo finished reading ${HOME}/.bash/path.sh
+__log_debug "Finished reading ${HOME}/.bash/path.sh"
