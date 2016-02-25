@@ -217,7 +217,7 @@ function elite
     case $TERM in
         xterm*|rxvt*)
             #local TITLEBAR='\[\033]0;\u@\h:\w\007\]'
-            local TITLEBAR='\[\033]0;\w\007\]'
+            local TITLEBAR='\[\033]0;\W\007\]'
             ;;
         *)
             local TITLEBAR=""
@@ -288,7 +288,7 @@ local DEFAULT="\e[m\]"
     if [ "${PROMPT_COLOR_ENABLED}" = "true" ]; then
         case $TERM in
             xterm*|rxvt*)
-                TITLEBAR='\[\033]0;\w\007\]'
+                TITLEBAR='\[\033]0;\W\007\]'
                 ;;
             *)
                 TITLEBAR=""
@@ -305,9 +305,9 @@ local DEFAULT="\e[m\]"
         #SIMPLE_PROMPT="[\u@\h] \w \$(parse_git_branch)\$"
 
         if type __git_ps1 &>/dev/null; then
-            SIMPLE_PROMPT="[${USER}@\h:\w$(__git_ps1 ' (%s)')]\$"
+            SIMPLE_PROMPT="\w$(__git_ps1 ' (%s)') \$"
         else
-            SIMPLE_PROMPT="[${USER}@\h:\w]\$"
+            SIMPLE_PROMPT="[${USER}@\h:\W]\$"
         fi
         #PS1="${PRE_COLOR}${PROMPT_COLOR}${SIMPLE_PROMPT}${POST_COLOR}${DEFAULT} "
         PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\[\033[m\]${POST_COLOR}${DEFAULT} "
