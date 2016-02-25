@@ -31,6 +31,7 @@ function catskim { cat "${@}" | enscript -p - | open -f -a Skim; }
 function cdd { pushd "$@"; }
 function cpr { rsync -ahv --progress "$@"; }
 function cs { cd $(pwd | sed "s#/Volumes/git/#${HOME}/src/#"); clear; }
+function docker-vagrant { export DOCKER_HOST=tcp://localhost:2375 ; }
 function du2 { du -csh "$@" | egrep '^[0-9.]+M' | sort -n ; }
 function eject { drutil tray eject; }
 function f { find . -name "*$@*"; }
