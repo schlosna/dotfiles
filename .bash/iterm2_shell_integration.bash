@@ -45,8 +45,19 @@ if ( [ x"$TERM" != xscreen ] ); then
   # was just displayed, to allow the DEBUG trap, below, to know that the next
   # command is likely interactive.
   function iterm2_preexec_invoke_cmd () {
+      # Ideally we could do this in iterm2_preexec_install but CentOS 7.2 and
+      # RHEL 7.2 complain about bashdb-main.inc not existing if you do that
+      # (issue 4160).
+      # *BOTH* of these options need to be set for the DEBUG trap to be invoked
+      # in ( ) subshells.  This smells like a bug in bash to me.  The null stackederr
+      # redirections are to quiet errors on bash2.05 (i.e. OSX's default shell)
+      # where the options can't be set, and it's impossible to inherit the trap
+      # into subshells.
+      set -o functrace > /dev/null 2>&1
+      shopt -s extdebug > /dev/null 2>&1
+
       local s=$?
-      last_hist_ent="$(history 1)";
+      last_hist_ent="$(\history 1)";
       precmd;
       # This is an iTerm2 addition to try to work around a problem in the
       # original preexec.bash.
@@ -58,7 +69,7 @@ if ( [ x"$TERM" != xscreen ] ); then
       # and have iterm2_prompt_prefix set a global variable that tells precmd not to
       # output anything and have iterm2_prompt_suffix reset that variable.
       # Unfortunately, command substitutions run in subshells and can't
-      # communicate to the outside world. 
+      # communicate to the outside world.
       # Instead, we have this workaround. We save the original value of PS1 in
       # $orig_ps1. Then each time this function is run (it's called from
       # PROMPT_COMMAND just before the prompt is shown) it will change PS1 to a
@@ -101,7 +112,7 @@ if ( [ x"$TERM" != xscreen ] ); then
           # ...which should return "2".
           return
       fi
-      if [[ -n "$COMP_LINE" ]]
+      if [[ -n "${COMP_LINE:-}" ]]
       then
           # We're in the middle of a completer.  This obviously can't be
           # an interactively issued command.
@@ -141,7 +152,7 @@ if ( [ x"$TERM" != xscreen ] ); then
       # variable, but using history here is better in some ways: for example, "ps
       # auxf | less" will show up with both sides of the pipe if we use history,
       # but only as "ps auxf" if not.
-      hist_ent="$(history 1)";
+      hist_ent="$(\history 1)";
       local prev_hist_ent="${last_hist_ent}";
       last_hist_ent="${hist_ent}";
       if [[ "${prev_hist_ent}" != "${hist_ent}" ]]; then
@@ -158,24 +169,15 @@ if ( [ x"$TERM" != xscreen ] ); then
 
   # Execute this to set up preexec and precmd execution.
   function iterm2_preexec_install () {
-
-      # *BOTH* of these options need to be set for the DEBUG trap to be invoked
-      # in ( ) subshells.  This smells like a bug in bash to me.  The null stackederr
-      # redirections are to quiet errors on bash2.05 (i.e. OSX's default shell)
-      # where the options can't be set, and it's impossible to inherit the trap
-      # into subshells.
-
-      set -o functrace > /dev/null 2>&1
-      shopt -s extdebug > /dev/null 2>&1
-
       # Finally, install the actual traps.
-      if ( [ x"$PROMPT_COMMAND" = x ]); then
+      if ( [ x"${PROMPT_COMMAND:-}" = x ]); then
         PROMPT_COMMAND="iterm2_preexec_invoke_cmd";
       else
         # If there's a trailing semicolon folowed by spaces, remove it (issue 3358).
         PROMPT_COMMAND="$(echo -n $PROMPT_COMMAND | sed -e 's/; *$//'); iterm2_preexec_invoke_cmd";
       fi
-      trap 'iterm2_preexec_invoke_exec' DEBUG;
+      # The $_ is ignored, but prevents it from changing (issue 3932).
+      trap 'iterm2_preexec_invoke_exec "$_"' DEBUG;
   }
 
   # -- begin iTerm2 customization
@@ -191,8 +193,21 @@ if ( [ x"$TERM" != xscreen ] ); then
   # Runs after interactively edited command but before execution
   function preexec() {
     iterm2_begin_osc
-    printf "133;C"
+    printf "133;C;"
     iterm2_end_osc
+    # Reset PS1 back to its original value so scripts can change it.
+    export PS1="$orig_ps1"
+    iterm2_ran_preexec="yes"
+  }
+
+  function precmd () {
+      # Work around a bug in CentOS 7.2 where preexec doesn't run if you press
+      # ^C while entering a command.
+      if [[ -z "${iterm2_ran_preexec:-}" ]]
+      then
+          preexec ""
+      fi
+      iterm2_ran_preexec=""
   }
 
   function iterm2_print_state_data() {
@@ -214,11 +229,15 @@ if ( [ x"$TERM" != xscreen ] ); then
     iterm2_end_osc
   }
 
-  # Users can write their own version of this method. It should call
-  # iterm2_set_user_var but not produce any other output.
-  function iterm2_print_user_vars() {
-    true
-  }
+  if [ -z "$(type -t iterm2_print_user_vars)" ] || [ "$(type -t iterm2_print_user_vars)" != function ]; then
+    # iterm2_print_user_vars is not already defined. Provide a no-op default version.
+    #
+    # Users can write their own version of this function. It should call
+    # iterm2_set_user_var but not produce any other output.
+    function iterm2_print_user_vars() {
+      true
+    }
+  fi
 
   function iterm2_prompt_prefix() {
     iterm2_begin_osc
@@ -246,7 +265,7 @@ if ( [ x"$TERM" != xscreen ] ); then
 
 
   # If hostname -f is slow on your system, set iterm2_hostname before sourcing this script.
-  if [ -z "$iterm2_hostname" ]; then
+  if [ -z "${iterm2_hostname:-}" ]; then
     iterm2_hostname=$(hostname -f)
   fi
   iterm2_preexec_install
