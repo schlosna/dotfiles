@@ -50,7 +50,7 @@ if [ -n "${BREW_HOME}" ]; then
     import "${BREW_HOME}/etc/bash_completion.d/git-prompt.sh"
     import "${BREW_HOME}/opt/bash-git-prompt/share/gitprompt.sh"
 
-    if type -P insta &>/dev/null; then
+    if type -P insta &>/dev/null && [ -f "${BREW_HOME}/Library/Taps/palantir/homebrew-insta/autocomplete/bash_autocomplete" ]; then
         PROG=insta source "${BREW_HOME}/Library/Taps/palantir/homebrew-insta/autocomplete/bash_autocomplete"
     fi
 
@@ -77,9 +77,8 @@ if type -P rbenv &>/dev/null; then
     eval "$(rbenv init -)";
 fi
 
-[[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
-
-export DOCKER_HOST=tcp://localhost:2375
+import "${HOME}/.gvm/scripts/gvm"
+import "${HOME}/.bash/cloud.bash"
 
 ####################
 # Paths
