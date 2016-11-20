@@ -29,19 +29,30 @@ Temporary Items
 ### Home directory
 /.CFUserTextEncoding
 /.IdeaIC15
+/.atom/.apm
+/.atom/packages
+/.bash_history
+/.bash_sessions
 /.cache
+/.cassandra/cqlsh_history
+/.cisco
 /.docker
 /.dropbox
 /.eclipse
 /.gem
 /.gradle
+/.groovy/groovysh.history
 /.gvm
+/.idea-build
 /.ivy2
 /.jenv
 /.jmc
 /.m2/repository
+/.m2/wrapper
+/.node-gyp
 /.npm
 /.oracle_jre_usage
+/.palantir
 /.rbenv
 /.sqldeveloper
 /.squirrel-sql
@@ -49,6 +60,7 @@ Temporary Items
 /.subversion
 /.vagrant.d
 /.vim/.netrwhist
+/.yarn-cache
 /.yjp
 /Applications
 /Box Sync
@@ -61,6 +73,7 @@ Temporary Items
 /Music
 /Pictures
 /Public
+/Snapshots
 /VirtualBox VMs
 /src
 /tmp
