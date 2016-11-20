@@ -68,6 +68,7 @@ import "${HOME}/.bash/iterm2_shell_integration.bash"
 
 if type -P jenv &>/dev/null; then
     eval "$(jenv init - --no-rehash)";
+    export JAVA_HOME=$(jenv javahome);
 fi
 
 if type -P rbenv &>/dev/null; then
