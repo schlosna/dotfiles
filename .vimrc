@@ -25,7 +25,7 @@ set diffopt=iwhite
 "set directory=/tmp
 set directory-=.                                             " don't store swapfiles in the current directory
 set expandtab
-set foldenable          " enable folding
+set nofoldenable        " disable folding
 set foldlevelstart=10   " open most folds by default
 set foldmethod=indent   " fold based on indent level
 set foldnestmax=10      " 10 nested fold max
