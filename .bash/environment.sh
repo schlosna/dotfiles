@@ -54,9 +54,6 @@ if [ -n "${BREW_HOME}" ]; then
         PROG=insta source "${BREW_HOME}/Library/Taps/palantir/homebrew-insta/autocomplete/bash_autocomplete"
     fi
 
-    # https://github.com/phinze/homebrew-cask/blob/master/USAGE.md
-    export HOMEBREW_CASK_OPTS="--appdir=/Applications --binarydir=${BREW_HOME}/bin "
-
     if type -P brew-cask &>/dev/null; then
         alias cask="brew-cask "
         complete -o bashdefault -o default -F _brew_cask cask
