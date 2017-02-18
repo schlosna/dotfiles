@@ -25,4 +25,6 @@ set keymap vi-insert
 "\e[D": backward-char           # arrow left
 "\ep": yank-last-arg
 Control-l: clear-screen
+"\C-x\C-e": edit-and-execute-command
+
 $endif

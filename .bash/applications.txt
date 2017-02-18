@@ -1,0 +1,96 @@
+1Password.app
+Alfred 3.app
+App Store.app
+Atom.app
+Automator.app
+Box Sync.app
+Calculator.app
+Calendar.app
+CarbonBlack
+Chess.app
+Cisco
+Cisco Jabber.app
+CoRD.app
+Contacts.app
+CrashPlan.app
+Cyberduck.app
+DVD Player.app
+Dash.app
+Dashboard.app
+Dictionary.app
+DiffMerge.app
+Disk Diag.app
+Docker.app
+Dropbox.app
+Eclipse.app
+FaceTime.app
+Firefox.app
+Flux.app
+Font Book.app
+Game Center.app
+GitHub Desktop.app
+GitX.app
+Google Chrome.app
+Hewlett-Packard
+Hex Fiend.app
+HipChat.app
+IDLE.app
+Image Capture.app
+Install macOS Sierra.app
+IntelliJ IDEA CE.app
+Kaleidoscope.app
+Keynote.app
+Launchpad.app
+MacVim.app
+Mail.app
+Maps.app
+Messages.app
+Microsoft Excel.app
+Microsoft Office 2011
+Microsoft OneNote.app
+Microsoft Outlook.app
+Microsoft PowerPoint.app
+Microsoft Word.app
+Mission Control.app
+Notes.app
+OmniDiskSweeper.app
+Palantir ISE Provisioner.app
+Photo Booth.app
+Photos.app
+Preview.app
+Python Launcher.app
+QuickTime Player.app
+Quicksilver.app
+Quip.app
+Reminders.app
+SQLDeveloper.app
+SQuirreLSQL 3.5.app
+SQuirreLSQL.app
+Safari.app
+Self Service.app
+Skim.app
+Skype Meetings App.app
+Slack.app
+SourceTree.app
+Spectacle.app
+Stickies.app
+System Preferences.app
+TextEdit.app
+TextWrangler.app
+The Archive Browser.app
+The Unarchiver.app
+Time Machine.app
+TinkerTool.app
+TrueCrypt.app
+Utilities
+Visual Studio Code.app
+VisualVM.app
+Xcode.app
+YourKit-Java-Profiler-2016.02.app
+eclipse
+eclipse-4.5
+iBooks.app
+iTerm.app
+iTunes.app
+mat
+p4merge.app

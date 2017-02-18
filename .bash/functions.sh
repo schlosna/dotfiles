@@ -31,6 +31,8 @@ function catskim { cat "${@}" | enscript -p - | open -f -a Skim; }
 function cdd { pushd "$@"; }
 function cpr { rsync -ahv --progress "$@"; }
 function cs { cd $(pwd | sed "s#/Volumes/git/#${HOME}/src/#"); clear; }
+function docker-vagrant { export DOCKER_HOST=tcp://localhost:2375 ; }
+function docker-unset { unset ${!DOCKER_*}; env | grep DOCKER; }
 function du2 { du -csh "$@" | egrep '^[0-9.]+M' | sort -n ; }
 function eject { drutil tray eject; }
 function f { find . -name "*$@*"; }
@@ -39,6 +41,7 @@ function gas { git status --porcelain | grep "^M" | sed 's/^M. //' | xargs git a
 function gc { git clone "$@" && cd $(basename $@ | sed 's/\..*//g'); }
 function getsite { wget -r --no-host-directories --no-parent --level=5 --user-agent='Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; rv:1.6b) Gecko/20031213 Camino/0.7+' "$@"; }
 function getpdf {  wget -r -l1 -A.pdf "$@"; }
+function gb { git branch -v "$@"; }
 function gf { gvim `f "$@"`; }
 function gl { git log "$@"; }
 function gs { git status -uno "$@"; }
@@ -54,6 +57,7 @@ function gz { gzip -v "$@"; }
 function hgs { hg status "$@"; }
 function hgqs { hg qstatus "$@"; }
 function hlog { git log --date-order --all --graph --format="%C(green)%H%C(reset) %C(yellow)%an%C(reset) %C(cyan bold)%aI%C(reset)%C(red bold)%d%C(reset) %s %C(cyan bold)%N%C(reset)" "$@"; }
+function idea { ./gradlew "$@" idea ; open *.ipr; }
 function jboss { cd ${JBOSS_HOME}; }
 function jc { jar cvf "$1.jar" "$1"; }
 function jenv-home { export JAVA_HOME=$(jenv javahome); echo "JAVA_HOME=${JAVA_HOME}"; }
@@ -87,7 +91,7 @@ function psg { ps -axo 'pid,user,nice,time,%cpu,command' | head -n 1; ps -axo 'p
 function psn { ps -axo 'pid,user,nice,time,%cpu,command' "$@"; }
 function pxz { jar cvfm "$1.pxz" META-INF/MANIFEST.MF metadata.xml ontology.ont sample.xml data.xml; }
 function q { exit; }
-function rcp { rsync -ahvz --progress "$@"; }
+function rcp { rsync --archive --human-readable --verbose --compress --progress "$@"; }
 function srcp { rsync -ahvz --rsync-path="sudo rsync" --progress "$@"; }
 function reattach { screen -d -r "$@"; }
 function replace { perl -p -i -e $1 $2; }
@@ -114,6 +118,7 @@ function tcpflow { sudo tcpflow -c -i en0 "$@"; }
 function todo { gvim "$HOME/todo/todo.txt"; }
 function tf { tail -f "$@"; }
 function tgz { tar cfz "$1.tar.gz" "$1"; }
+function tssh { ssh "$@" -t "tmux -CC attach || tmux -CC"; }
 function unbz2 { bunzip2 "$@"; }
 function ungz { gzip -d "$@"; }
 function untar { tar xf "$@"; }

@@ -50,12 +50,9 @@ if [ -n "${BREW_HOME}" ]; then
     import "${BREW_HOME}/etc/bash_completion.d/git-prompt.sh"
     import "${BREW_HOME}/opt/bash-git-prompt/share/gitprompt.sh"
 
-    if type -P insta &>/dev/null; then
+    if type -P insta &>/dev/null && [ -f "${BREW_HOME}/Library/Taps/palantir/homebrew-insta/autocomplete/bash_autocomplete" ]; then
         PROG=insta source "${BREW_HOME}/Library/Taps/palantir/homebrew-insta/autocomplete/bash_autocomplete"
     fi
-
-    # https://github.com/phinze/homebrew-cask/blob/master/USAGE.md
-    export HOMEBREW_CASK_OPTS="--appdir=/Applications --binarydir=${BREW_HOME}/bin "
 
     if type -P brew-cask &>/dev/null; then
         alias cask="brew-cask "
@@ -68,18 +65,20 @@ import "/opt/local/etc/bash_completion"
 
 # iterm2 shell integration
 import "${HOME}/.bash/iterm2_shell_integration.bash"
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
 
 if type -P jenv &>/dev/null; then
     eval "$(jenv init - --no-rehash)";
+    export JAVA_HOME=$(jenv javahome);
 fi
 
 if type -P rbenv &>/dev/null; then
     eval "$(rbenv init -)";
 fi
 
-[[ -s "${HOME}/.gvm/scripts/gvm" ]] && source "${HOME}/.gvm/scripts/gvm"
-
-export DOCKER_HOST=tcp://localhost:2375
+import "${HOME}/.gvm/scripts/gvm"
+import "${HOME}/.bash/cloud.bash"
 
 ####################
 # Paths
@@ -96,7 +95,7 @@ if [ "${BASH_VERSINFO}" -gt 3 ]; then
     shopt -s dirspell
 fi
 
-export CDPATH=".:~:/Volumes/git:${HOME}/Documents"
+export CDPATH=".:~:/Volumes/git:${HOME}/Documents:/Volumes"
 export FIGNORE=\~:.bak:.o
 
 ####################
@@ -217,7 +216,7 @@ function elite
     case $TERM in
         xterm*|rxvt*)
             #local TITLEBAR='\[\033]0;\u@\h:\w\007\]'
-            local TITLEBAR='\[\033]0;\w\007\]'
+            local TITLEBAR='\[\033]0;\W\007\]'
             ;;
         *)
             local TITLEBAR=""
@@ -288,7 +287,7 @@ local DEFAULT="\e[m\]"
     if [ "${PROMPT_COLOR_ENABLED}" = "true" ]; then
         case $TERM in
             xterm*|rxvt*)
-                TITLEBAR='\[\033]0;\w\007\]'
+                TITLEBAR='\[\033]0;\W\007\]'
                 ;;
             *)
                 TITLEBAR=""
@@ -305,9 +304,9 @@ local DEFAULT="\e[m\]"
         #SIMPLE_PROMPT="[\u@\h] \w \$(parse_git_branch)\$"
 
         if type __git_ps1 &>/dev/null; then
-            SIMPLE_PROMPT="[${USER}@\h:\w$(__git_ps1 ' (%s)')]\$"
+            SIMPLE_PROMPT="\w$(__git_ps1 ' (%s)') \$"
         else
-            SIMPLE_PROMPT="[${USER}@\h:\w]\$"
+            SIMPLE_PROMPT="[${USER}@\h:\W]\$"
         fi
         #PS1="${PRE_COLOR}${PROMPT_COLOR}${SIMPLE_PROMPT}${POST_COLOR}${DEFAULT} "
         PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\[\033[m\]${POST_COLOR}${DEFAULT} "

@@ -12,7 +12,9 @@ import() {
     if [ -f "$@" ]; then
         . "$@"
         __log_debug "imported '$@'"
+        return 0
     fi
+    return 1
 }
 
 [ -n "${TRACE_BASH}" ] && set -x

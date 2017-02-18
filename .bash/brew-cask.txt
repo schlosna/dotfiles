@@ -1,0 +1,11 @@
+flux
+iterm2-beta
+java
+java6
+java7
+macvim
+skim
+spectacle
+vagrant
+virtualbox
+virtualbox-extension-pack

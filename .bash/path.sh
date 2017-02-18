@@ -11,19 +11,23 @@ __log_debug "Begin reading ${HOME}/.bash/path.sh"
 export BREW_HOME=/opt/brew
 __log_debug "Using BREW_HOME=${BREW_HOME}"
 
-export DASH_HOME=/opt/dash
+export DASH_HOME=/usr/local/dev-env
 
 ####################
 # Java Path
 ####################
 
-#export JAVA_HOME=$(/usr/libexec/java_home -v 1.6)
-#export JDK6_HOME=/Library/Java/JavaVirtualMachines/1.6.0_65-b14-462.jdk/Contents/Home
-export JDK6_HOME=/Users/davids/.jenv/versions/1.6
-export JAVA_1_6_HOME="$JDK6_HOME"
-export JDK7_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0.jdk/Contents/Home
+export JAVA_1_6_HOME="$(/usr/libexec/java_home -v 1.6)"
+export JDK6_HOME="${JAVA_1_6_HOME}"
+
+export JAVA_1_7_HOME="$(/usr/libexec/java_home -v 1.7)"
+export JDK7_HOME="${JAVA_1_7_HOME}"
+
+export JAVA_8_HOME="$(/usr/libexec/java_home -v 1.8)"
+export JDK8_HOME="${JAVA_8_HOME}"
+
+export JAVA_HOME="${JAVA_8_HOME}"
 export IVY_SETTINGS=/Users/davids/.ivy2/ivy-settings.xml
-#export CLASSPATH=/opt/oracle/lib/ojdbc6_g.jar:${CLASSPATH}:.
 
 ####################
 # Executable Search Path
@@ -35,14 +39,15 @@ PATH="/usr/local/bin:${PATH}"
 PATH="${BREW_HOME}/bin:${PATH}"
 PATH="${PATH}:${HOME}/bin"
 PATH="${PATH}:${HOME}/.jenv/bin"
+PATH="${PATH}:${JAVA_HOME}/bin"
 PATH="${PATH}:${BREW_HOME}/share/npm/bin"
 PATH="${PATH}:${DASH_HOME}/bin"
 
-IL_SCRIPTS_HOME="${HOME}/src/il_scripts"
-PATH="${PATH}:${IL_SCRIPTS_HOME}"
-
-if [ -f "${IL_SCRIPTS_HOME}/.bash_completion.d/il_completion" ]; then
-    source "${IL_SCRIPTS_HOME}/.bash_completion.d/il_completion"
+IL_SCRIPTS_HOME="/Volumes/git/il_scripts"
+if [ -d "${IL_SCRIPTS_HOME}" ]; then
+    PATH="${PATH}:${IL_SCRIPTS_HOME}"
+    import "${IL_SCRIPTS_HOME}/.bash_completion.d/il_completion"
+    __log_debug "Loaded IL scripts"
 fi
 
 export PATH
