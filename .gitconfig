@@ -1,0 +1,157 @@
+[user]
+	name = David Schlosnagle
+	email = schlosna@gmail.com
+
+[branch]
+	autosetuprebase = always
+
+[push]
+	default = simple
+
+[core]
+	#autocrlf = input
+	autocrlf = false
+	excludesfile = /Users/davids/.gitignore_global
+	untrackedCache = true
+	# search for core.pager in
+	# <http://www.kernel.org/pub/software/scm/git/docs/git-config.html>
+	# to see why we use this convoluted syntax
+	#pager = less -+$LESS -SFRX -SR +'/^---'
+
+[commit]
+	verbose = true
+
+[rebase]
+	autostash = true
+
+[remote "origin"]
+	prune = true
+
+[stash]
+	showPatch = true
+
+[format]
+    #pretty = --date=iso
+
+[alias]
+	#log --pretty=format:"%C(yellow)%h%Cred%d\\ %C(reset)%s%Cblue\\ [%cn]" --decorate
+	assume   = update-index --assume-unchanged
+	assumed  = "!git ls-files -v | grep ^h | cut -c 3-"
+	au = add --update
+#	branches = !legit branches
+	cd = checkout
+	ci = commit --verbose
+	co = checkout
+	cp = cherry-pick
+	drop = checkout --
+	freebase = !git fetch && git rebase
+	hlog = log --date-order --graph --format=\"%C(green)%h%C(reset) %C(yellow)%an%C(reset) %C(cyan bold)%aI%C(reset) %C(red bold)%d%C(reset)%s %C(cyan bold)%N%C(reset)\"
+	last = show -1
+	ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %C(reset)%s%Ccyan\\ [%cn]" --decorate --date=short
+	le = log --oneline --decorate
+	ll = log --pretty=format:\"%C(yellow)%h%Cred%d %C(reset)%s%Ccyan [%cn]\" --decorate --numstat
+	ls = log --pretty=format:\"%C(yellow)%H %C(reset)%s%C(cyan) [%an]%C(reset) %C(green)%aI%C(reset)%C(red)%d\" --decorate
+	no-whitespace = "!sh -c 'git diff -w --no-color "$@" | git apply --cached --ignore-whitespace' -"
+	ours   = "!f() { git checkout --ours $@ && git add $@; }; f"
+	pop = reset HEAD^
+	porg = push origin
+	q = stash
+	rb = "!f() { git rebase -i HEAD~$1; }; f"
+	ri = rebase -i
+	snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+	sp = stash pop
+	theirs = "!f() { git checkout --theirs $@ && git add $@; }; f"
+	tlog = log --topo-order --graph --format=\"%C(green)%h%C(reset) %C(yellow)%an%C(reset) %C(cyan bold)%aI%C(reset) %C(red bold)%d%C(reset)%s\"
+	unassume = update-index --no-assume-unchanged
+
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = true
+	pager = true
+
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+
+[color "status"]
+	added = green bold
+	changed = yellow bold
+	untracked = red bold
+
+[pager]
+	log = diff-highlight | less
+	show = diff-highlight | less
+	diff = diff-highlight | less
+	commit = false
+
+[mergetool "p4merge"]
+	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge \
+		"$PWD/$BASE" \
+		"$PWD/$REMOTE" \
+		"$PWD/$LOCAL" \
+		"$PWD/$MERGED"
+	keepBackup = false
+	trustExitCode = false
+
+[mergetool "diffmerge"]
+	cmd = /Applications/DiffMerge.app/Contents/MacOS/DiffMerge \
+		--nosplash \
+		--result="$PWD/$MERGED" \
+		"$PWD/$BASE" \
+		"$PWD/$REMOTE" \
+		"$PWD/$LOCAL"
+	keepBackup = false
+	trustExitCode = false
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	algorithm = patience
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+
+[difftool "Kaleidoscope"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+	algorithm = patience
+[mergetool "Kaleidoscope"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+
+[diff]
+	tool = Kaleidoscope
+	#algorithm = patience
+	compactionHeuristic = true
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+[merge]
+	tool = Kaleidoscope
+	conflictstyle = diff3
+
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[credential]
+	helper = cache --timeout=3600
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+	process = git-lfs filter-process
+[interactive]
+	diffFilter = diff-highlight
+[rerere]
+	enabled = 1
