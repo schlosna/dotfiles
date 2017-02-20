@@ -31,6 +31,7 @@ function catskim { cat "${@}" | enscript -p - | open -f -a Skim; }
 function cdd { pushd "$@"; }
 function cpr { rsync -ahv --progress "$@"; }
 function cs { cd $(pwd | sed "s#/Volumes/git/#${HOME}/src/#"); clear; }
+function docker-kill() { docker stop $(docker ps -a -q) && docker rm -vf $(docker ps -a -q); }
 function docker-vagrant { export DOCKER_HOST=tcp://localhost:2375 ; }
 function docker-unset { unset ${!DOCKER_*}; env | grep DOCKER; }
 function du2 { du -csh "$@" | egrep '^[0-9.]+M' | sort -n ; }
@@ -41,10 +42,11 @@ function gas { git status --porcelain | grep "^M" | sed 's/^M. //' | xargs git a
 function gc { git clone "$@" && cd $(basename $@ | sed 's/\..*//g'); }
 function getsite { wget -r --no-host-directories --no-parent --level=5 --user-agent='Mozilla/5.0 (Macintosh; U; PPC Mac OS X Mach-O; rv:1.6b) Gecko/20031213 Camino/0.7+' "$@"; }
 function getpdf {  wget -r -l1 -A.pdf "$@"; }
-function gb { git branch -v "$@"; }
+function gb { git recent || git branch -v "$@"; }
 function gf { gvim `f "$@"`; }
 function gl { git log "$@"; }
 function gs { git status -uno "$@"; }
+function gsi { git status -u --ignored "$@"; }
 function gst { git status "$@"; }
 function gcm { git commit -a -v "$@"; }
 function gco { git checkout "$@"; }
