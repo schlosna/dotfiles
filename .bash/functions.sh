@@ -54,6 +54,7 @@ function gdm { GIT_EXTERNAL_DIFF='diffmerge-git-wrapper' git diff "$@"; }
 function gitup { cd $(git rev-parse --show-toplevel); }
 function gitx { open -a gitx .; }
 function gpull { git pull ; git status ; }
+function gradle-stop { jcmd | grep -i GradleDaemon | awk '{ print $1 }' | xargs kill; }
 function gvim { mvim "$@"; }
 function gz { gzip -v "$@"; }
 function hgs { hg status "$@"; }
