@@ -132,4 +132,7 @@ function viewgz { tar tfz "$@"; }
 function wgetall { wget -r -nd -np -l1 -A "*.$2" "$1"; }
 function which { type -a "$@"; }
 
+complete -F _known_hosts cpr
+complete -F _known_hosts rcp
+
 __log_debug "finished reading ${HOME}/.bash/functions.sh"
