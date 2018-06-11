@@ -287,7 +287,8 @@ local DEFAULT="\e[m\]"
     if [ "${PROMPT_COLOR_ENABLED}" = "true" ]; then
         case $TERM in
             xterm*|rxvt*)
-                TITLEBAR='\[\033]0;\W\007\]'
+                #https://gist.github.com/phette23/5270658
+                TITLEBAR="\[\033]0;\]\W\007\]"
                 ;;
             *)
                 TITLEBAR=""
@@ -296,10 +297,10 @@ local DEFAULT="\e[m\]"
 
         if [ $UID -eq 0 ]; then
             # set prompt color for root
-            PROMPT_COLOR='37;41m'
+            PROMPT_COLOR="${PRE_COLOR}37;41m${POST_COLOR}"
         else
             # set prompt color for general users
-            PROMPT_COLOR="37;44m"
+            PROMPT_COLOR="${PRE_COLOR}37;44m${POST_COLOR}"
         fi
         #SIMPLE_PROMPT="[\u@\h] \w \$(parse_git_branch)\$"
 
@@ -309,7 +310,8 @@ local DEFAULT="\e[m\]"
             SIMPLE_PROMPT="[${USER}@\h:\W]\$"
         fi
         #PS1="${PRE_COLOR}${PROMPT_COLOR}${SIMPLE_PROMPT}${POST_COLOR}${DEFAULT} "
-        PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\[\033[m\]${POST_COLOR}${DEFAULT} "
+        #PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\[\033[m\]${POST_COLOR}${DEFAULT} "
+        PS1="${TITLEBAR}${PROMPT_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}m${POST_COLOR}${DEFAULT} "
         #PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\[\033[m\]${POST_COLOR}${DEFAULT} "
         #PS1="${TITLEBAR}[${GREEN}${USER}@\h:\W${YELLOW}$(__git_ps1 ' (%s)')${LIGHT_GRAY}${CLEAR}]\\$ "
     else
