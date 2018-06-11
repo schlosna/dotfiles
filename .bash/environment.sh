@@ -135,6 +135,16 @@ if [ -d "${BREW_HOME}/opt/readline/include" ]; then
     export CPPFLAGS="-I${BREW_HOME}/opt/readline/include ${CPPFLAGS}"
 fi
 
+if type -P go &>/dev/null; then
+    GOPATH="/Volumes/git/go"
+    if [ ! -d "${GOPATH}" ]; then
+        GOPATH="$(go env GOPATH)"
+    fi
+    mkdir -p "${GOPATH}"
+    export GOPATH
+    export PATH="${PATH}:${GOPATH}/bin"
+fi
+
 ####################
 # Network
 ####################
