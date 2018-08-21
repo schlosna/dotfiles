@@ -1,7 +1,10 @@
+*.hprof
+*.iml
+*.jfr
+*.patch
+*.diff
 *~
 .DS_Store
-patches/
 .idea
-*.iml
 .java-version
-
+patches/
