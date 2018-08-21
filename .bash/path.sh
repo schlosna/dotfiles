@@ -11,17 +11,9 @@ __log_debug "Begin reading ${HOME}/.bash/path.sh"
 export BREW_HOME=/opt/brew
 __log_debug "Using BREW_HOME=${BREW_HOME}"
 
-export DASH_HOME=/usr/local/dev-env
-
 ####################
 # Java Path
 ####################
-
-export JAVA_1_6_HOME="$(/usr/libexec/java_home -v 1.6)"
-export JDK6_HOME="${JAVA_1_6_HOME}"
-
-export JAVA_1_7_HOME="$(/usr/libexec/java_home -v 1.7)"
-export JDK7_HOME="${JAVA_1_7_HOME}"
 
 export JAVA_8_HOME="$(/usr/libexec/java_home -v 1.8)"
 export JDK8_HOME="${JAVA_8_HOME}"
@@ -36,7 +28,10 @@ export IVY_SETTINGS=/Users/davids/.ivy2/ivy-settings.xml
 __log_debug "Original PATH=${PATH}"
 PATH="/opt/local/bin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
+PATH="${BREW_HOME}/opt/curl/bin:${PATH}"
+PATH="${BREW_HOME}/opt/ant@1.9/bin:${PATH}"
 PATH="${BREW_HOME}/bin:${PATH}"
+PATH="${BREW_HOME}/sbin:${PATH}"
 PATH="${PATH}:${HOME}/bin"
 PATH="${PATH}:${HOME}/.jenv/bin"
 PATH="${PATH}:${JAVA_HOME}/bin"
