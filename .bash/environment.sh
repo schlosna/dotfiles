@@ -66,8 +66,8 @@ fi
 import "/opt/local/etc/bash_completion"
 
 # iterm2 shell integration
-import "${HOME}/.bash/iterm2_shell_integration.bash"
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+export iterm2_hostname="$(hostname -f)"
+import "${HOME}/.bash/iterm2_shell_integration.bash" || import "${HOME}/.iterm2_shell_integration.bash"
 
 
 if type -P jenv &>/dev/null; then
