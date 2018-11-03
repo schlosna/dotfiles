@@ -74,7 +74,7 @@ set nowritebackup
 set number
 set report=0
 set ruler
-set runtimepath^=~/.vim/bundle/ag.vim
+set runtimepath^=~/.vim/bundle/ag.vim,/opt/brew/bin/fzf
 set scrolloff=3
 set selectmode=
 "set shell=tcsh\ -f
