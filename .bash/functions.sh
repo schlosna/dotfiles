@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. "${HOME}/.bash/common.bash"
+
 __log_debug "begin reading ${HOME}/.bash/functions.sh"
 
 if type -P brew &>/dev/null; then

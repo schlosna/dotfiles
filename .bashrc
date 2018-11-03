@@ -1,21 +1,6 @@
 #!/bin/bash
 
-__log_info() {
-    echo " [INFO]  - ${1}"
-}
-
-__log_debug() {
-    [ -n "${DEBUG}" ] && echo " [DEBUG] - ${1}" 1>&2
-}
-
-import() {
-    if [ -f "$@" ]; then
-        . "$@"
-        __log_debug "imported '$@'"
-        return 0
-    fi
-    return 1
-}
+. "${HOME}/.bash/common.bash"
 
 [ -n "${TRACE_BASH}" ] && set -x
 __log_debug "Began reading ${HOME}/.bashrc"
@@ -34,4 +19,5 @@ __log_debug "Finished reading ${HOME}/.bashrc"
 
 unset -f __log_info
 unset -f __log_debug
+unset -v __processed_common
 

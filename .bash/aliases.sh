@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. "${HOME}/.bash/common.bash"
+
 __log_debug "Begin reading ${HOME}/.bash/aliases.sh"
 
 alias a="rg -i "

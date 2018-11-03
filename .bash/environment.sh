@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. "${HOME}/.bash/common.bash"
+
 __log_debug "Begin reading ${HOME}/.bash/environment.sh"
 
 ####################
@@ -79,6 +81,9 @@ fi
 
 import "${HOME}/.gvm/scripts/gvm"
 import "${HOME}/.bash/cloud.bash"
+
+CURL_CA_BUNDLE="/etc/pki/tls/certs/ca-bundle.crt"
+[ -f "${CURL_CA_BUNDLE}" ] && export CURL_CA_BUNDLE || unset CURL_CA_BUNDLE
 
 ####################
 # Paths
