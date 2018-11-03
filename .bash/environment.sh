@@ -35,8 +35,8 @@ fi
 
 if [ -n "${BREW_HOME}" ]; then
 ### BASH Completion for homebrew
+    import "${BREW_HOME}/etc/profile.d/bash_completion.sh"
     import "${BREW_HOME}/Library/Contributions/brew_bash_completion.sh"
-
     if [ "${BASH_VERSINFO}" -gt 3 ]; then
         # bash-completion2 for bash 4.0+
         import "${BREW_HOME}/share/bash-completion/bash_completion"
@@ -48,9 +48,12 @@ if [ -n "${BREW_HOME}" ]; then
     # http://wiki.github.com/joelthelion/autojump
     import "${BREW_HOME}/etc/autojump.sh"
     import "${BREW_HOME}/etc/profile.d/autojump.sh"
-
-    import "${BREW_HOME}/etc/bash_completion.d/git-prompt.sh"
     import "${BREW_HOME}/opt/bash-git-prompt/share/gitprompt.sh"
+
+    for i in ${BREW_HOME}/etc/bash_completion.d/*
+    do
+        import "$i"
+    done
 
     if type -P insta &>/dev/null && [ -f "${BREW_HOME}/Library/Taps/palantir/homebrew-insta/autocomplete/bash_autocomplete" ]; then
         PROG=insta source "${BREW_HOME}/Library/Taps/palantir/homebrew-insta/autocomplete/bash_autocomplete"
@@ -60,6 +63,7 @@ if [ -n "${BREW_HOME}" ]; then
         alias cask="brew-cask "
         complete -o bashdefault -o default -F _brew_cask cask
     fi
+    import "${HOME}/.bash/tokens.bash"
 fi
 
 ### BASH Completion from MacPorts
