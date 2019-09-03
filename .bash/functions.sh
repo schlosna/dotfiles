@@ -33,6 +33,7 @@ function catskim { cat "${@}" | enscript -p - | open -f -a Skim; }
 function cdd { pushd "$@"; }
 function cpr { rsync -ahv --progress "$@"; }
 function cs { cd $(pwd | sed "s#/Volumes/git/#${HOME}/src/#"); clear; }
+function dns-restart { sudo killall -HUP mDNSResponder; }
 function docker-kill() { docker stop $(docker ps -a -q) && docker rm -vf $(docker ps -a -q); }
 function docker-vagrant { export DOCKER_HOST=tcp://localhost:2375 ; }
 function docker-unset { unset ${!DOCKER_*}; env | grep DOCKER; }
@@ -57,6 +58,14 @@ function gitup { cd $(git rev-parse --show-toplevel); }
 function gitx { open -a gitx .; }
 function gpull { git pull ; git status ; }
 function gradle-stop { jcmd | grep -i GradleDaemon | awk '{ print $1 }' | xargs kill; }
+function gup {
+    if git pull; then
+        git status;
+        gw idea;
+    else
+        git status;
+    fi
+}
 function gvim { mvim "$@"; }
 function gz { gzip -v "$@"; }
 function hgs { hg status "$@"; }
@@ -133,6 +142,11 @@ function up { cd ..; ls; }
 function viewgz { tar tfz "$@"; }
 function wgetall { wget -r -nd -np -l1 -A "*.$2" "$1"; }
 function which { type -a "$@"; }
+function yy () {
+    opensc_path=/usr/local/lib/opensc-pkcs11.so
+    eval $(ssh-agent -t 1d -P $opensc_path)
+    ssh-add -s $opensc_path
+}
 
 complete -F _known_hosts cpr
 complete -F _known_hosts rcp
