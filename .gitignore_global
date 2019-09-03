@@ -1,6 +1,7 @@
 *.hprof
 *.iml
 *.jfr
+*.orig
 *.patch
 *.diff
 *~

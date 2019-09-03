@@ -9,8 +9,9 @@ __log_debug "Begin reading ${HOME}/.bash/path.sh"
 ####################
 
 # Home brew prefix (i.e `brew --prefix`)
-#export BREW_HOME=/usr/local
-export BREW_HOME=/opt/brew
+[ -d "/usr/local/" ] && BREW_HOME=/usr/local
+[ -d "/opt/brew/" ] && BREW_HOME=/opt/brew
+export BREW_HOME=${BREW_HOME:-/usr/local}
 __log_debug "Using BREW_HOME=${BREW_HOME}"
 
 ####################

@@ -50,8 +50,7 @@ if [ -n "${BREW_HOME}" ]; then
     import "${BREW_HOME}/etc/profile.d/autojump.sh"
     import "${BREW_HOME}/opt/bash-git-prompt/share/gitprompt.sh"
 
-    for i in ${BREW_HOME}/etc/bash_completion.d/*
-    do
+    for i in ${BREW_HOME}/etc/bash_completion.d/*; do
         import "$i"
     done
 
@@ -64,6 +63,9 @@ if [ -n "${BREW_HOME}" ]; then
         complete -o bashdefault -o default -F _brew_cask cask
     fi
     import "${HOME}/.bash/tokens.bash"
+
+    #export NVM_DIR="${HOME}/.nvm"
+    #import "/opt/brew/opt/nvm/nvm.sh"
 fi
 
 ### BASH Completion from MacPorts
