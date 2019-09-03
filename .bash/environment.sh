@@ -228,16 +228,16 @@ function parse_git_branch {
 
 function elite
 {
-    local GRAY="\[\033[1;30m\]"
-    local LIGHT_GRAY="\[\033[0;37m\]"
-    local CYAN="\[\033[0;36m\]"
-    local LIGHT_CYAN="\[\033[1;36m\]"
-    local NO_COLOUR="\[\033[0m\]"
+    local GRAY="\001\033[1;30m\002"
+    local LIGHT_GRAY="\001\033[0;37m\002"
+    local CYAN="\001\033[0;36m\002"
+    local LIGHT_CYAN="\001\033[1;36m\002"
+    local NO_COLOUR="\001\033[0m\002"
 
     case $TERM in
         xterm*|rxvt*)
-            #local TITLEBAR='\[\033]0;\u@\h:\w\007\]'
-            local TITLEBAR='\[\033]0;\W\007\]'
+            #local TITLEBAR='\001\033]0;\u@\h:\w\007\002'
+            local TITLEBAR='\001\033]0;\W\007\002'
             ;;
         *)
             local TITLEBAR=""
@@ -267,17 +267,17 @@ function make-prompt {
 #  ANSI Colors
 ####################
 
-local PRE_COLOR="\[\033["
-local POST_COLOR="\]"
-local DEFAULT="\e[m\]"
+local PRE_COLOR="\001\033["
+local POST_COLOR="\002"
+local DEFAULT="\e[m\002"
 
-    local COLOR="\[\033[31;40m\]"
-    local RED="\[\033[0;31m\]"
-    local GREEN="\[\033[0;32m\]"
-    local YELLOW="\[\033[0;33m\]"
-    local LIGHT_GRAY="\[\033[0;37m\]"
-    local CYAN="\[\033[0;36m\]"
-    local CLEAR="\[\e[0m\]"
+local COLOR="\001\033[31;40m\002"
+local RED="\001\033[0;31m\002"
+local GREEN="\001\033[0;32m\002"
+local YELLOW="\001\033[0;33m\002"
+local LIGHT_GRAY="\001\033[0;37m\002"
+local CYAN="\001\033[0;36m\002"
+local CLEAR="\001\e[0m\002"
 
 #BACK_RED="41"
 #BACK_GREEN="42"
@@ -309,7 +309,8 @@ local DEFAULT="\e[m\]"
         case $TERM in
             xterm*|rxvt*)
                 #https://gist.github.com/phette23/5270658
-                TITLEBAR="\[\033]0;\]\W\007\]"
+                #TITLEBAR="\001\033]0;\002\W\007\002"
+                TITLEBAR="\001\033]0;\002\001\W\007\002"
                 ;;
             *)
                 TITLEBAR=""
@@ -331,9 +332,9 @@ local DEFAULT="\e[m\]"
             SIMPLE_PROMPT="[${USER}@\h:\W]\$"
         fi
         #PS1="${PRE_COLOR}${PROMPT_COLOR}${SIMPLE_PROMPT}${POST_COLOR}${DEFAULT} "
-        #PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\[\033[m\]${POST_COLOR}${DEFAULT} "
+        #PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\001\033[m\002${POST_COLOR}${DEFAULT} "
         PS1="${TITLEBAR}${PROMPT_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}m${POST_COLOR}${DEFAULT} "
-        #PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\[\033[m\]${POST_COLOR}${DEFAULT} "
+        #PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\001\033[m\002${POST_COLOR}${DEFAULT} "
         #PS1="${TITLEBAR}[${GREEN}${USER}@\h:\W${YELLOW}$(__git_ps1 ' (%s)')${LIGHT_GRAY}${CLEAR}]\\$ "
     else
         PS1="${SIMPLE_PROMPT} "
