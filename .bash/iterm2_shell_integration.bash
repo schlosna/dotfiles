@@ -302,4 +302,9 @@ if [[ "$TERM" != screen && "$ITERM_SHELL_INTEGRATION_INSTALLED" = "" && "$-" == 
   # This is necessary so the first command line will have a hostname and current directory.
   iterm2_print_state_data
   iterm2_print_version_number
+else
+  # no-op when in screen/tmux
+  function iterm2_preexec_invoke_cmd () {
+    true
+  }
 fi
