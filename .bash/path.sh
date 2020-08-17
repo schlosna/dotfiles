@@ -21,9 +21,6 @@ __log_debug "Using BREW_HOME=${BREW_HOME}"
 export JAVA_8_HOME="$(/usr/libexec/java_home -v 1.8)"
 export JDK8_HOME="${JAVA_8_HOME}"
 
-export JAVA_HOME="${JAVA_8_HOME}"
-export IVY_SETTINGS=/Users/davids/.ivy2/ivy-settings.xml
-
 ####################
 # Executable Search Path
 ####################
@@ -37,7 +34,6 @@ PATH="${BREW_HOME}/bin:${PATH}"
 PATH="${BREW_HOME}/sbin:${PATH}"
 PATH="${PATH}:${HOME}/bin"
 PATH="${PATH}:${HOME}/.jenv/bin"
-PATH="${PATH}:${JAVA_HOME}/bin"
 PATH="${PATH}:${BREW_HOME}/share/npm/bin"
 PATH="${PATH}:${DASH_HOME}/bin"
 
