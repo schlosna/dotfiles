@@ -50,6 +50,7 @@ function gf { gvim `f "$@"`; }
 function gl { git log "$@"; }
 function gs { git status -uno "$@"; }
 function gsi { git status -u --ignored "$@"; }
+function gss { git status -uno --ignored "$@"; }
 function gst { git status "$@"; }
 function gcm { git commit -a -v "$@"; }
 function gco { git checkout "$@"; }
