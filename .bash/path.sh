@@ -35,14 +35,6 @@ PATH="${BREW_HOME}/sbin:${PATH}"
 PATH="${PATH}:${HOME}/bin"
 PATH="${PATH}:${HOME}/.jenv/bin"
 PATH="${PATH}:${BREW_HOME}/share/npm/bin"
-PATH="${PATH}:${DASH_HOME}/bin"
-
-IL_SCRIPTS_HOME="/Volumes/git/il_scripts"
-if [ -d "${IL_SCRIPTS_HOME}" ]; then
-    PATH="${PATH}:${IL_SCRIPTS_HOME}"
-    import "${IL_SCRIPTS_HOME}/.bash_completion.d/il_completion"
-    __log_debug "Loaded IL scripts"
-fi
 
 export PATH
 __log_debug "PATH=${PATH}"
