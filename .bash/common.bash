@@ -10,7 +10,7 @@ if [ -v $__processed_common ]; then
     }
 
     import() {
-        if [ -f "$@" ]; then
+        if [ -s "$@" ]; then
             . "$@"
             __log_debug "imported '$@'"
             return 0

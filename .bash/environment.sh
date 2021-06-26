@@ -64,8 +64,11 @@ if [ -n "${BREW_HOME}" ]; then
     fi
     import "${HOME}/.bash/tokens.bash"
 
-    #export NVM_DIR="${HOME}/.nvm"
-    #import "/opt/brew/opt/nvm/nvm.sh"
+    export NVM_DIR="$HOME/.nvm"
+    if [ -s "${BREW_HOME}/opt/nvm/nvm.sh" ] && [ -d "${NVM_DIR}" ]; then
+        import "${BREW_HOME}/opt/nvm/nvm.sh"
+        import "${BREW_HOME}/opt/nvm/etc/bash_completion.d/nvm"
+    fi
 fi
 
 ### BASH Completion from MacPorts
