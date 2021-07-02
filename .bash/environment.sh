@@ -109,7 +109,8 @@ if [ "${BASH_VERSINFO}" -gt 3 ]; then
     shopt -s dirspell
 fi
 
-export CDPATH=".:~:/Volumes/git:${HOME}/Documents:/Volumes"
+[ -d "/Volumes/git" ] && export DEVELOPMENT_DIR="/Volumes/git" || export DEVELOPMENT_DIR="$HOME"
+export CDPATH=".:~:${DEVELOPMENT_DIR}:${HOME}/Documents:/Volumes"
 export FIGNORE=\~:.bak:.o
 
 ####################
@@ -150,7 +151,7 @@ if [ -d "${BREW_HOME}/opt/readline/include" ]; then
 fi
 
 if type -P go &>/dev/null; then
-    GOPATH="/Volumes/git/go"
+    GOPATH="${DEVELOPMENT_DIR}/go"
     if [ ! -d "${GOPATH}" ]; then
         GOPATH="$(go env GOPATH)"
     fi
