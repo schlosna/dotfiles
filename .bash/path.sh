@@ -18,8 +18,10 @@ __log_debug "Using BREW_HOME=${BREW_HOME}"
 # Java Path
 ####################
 
-export JAVA_8_HOME="$(/usr/libexec/java_home -v 1.8)"
-export JDK8_HOME="${JAVA_8_HOME}"
+if [ -f "/usr/libexec/java_home" ]; then
+    export JAVA_8_HOME="$(/usr/libexec/java_home -v 1.8)"
+    export JDK8_HOME="${JAVA_8_HOME}"
+fi
 
 ####################
 # Executable Search Path
