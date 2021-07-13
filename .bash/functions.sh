@@ -73,7 +73,13 @@ function gup {
         git status;
     fi
 }
-function gvim { mvim "$@" ; }
+function gvim {
+    if type -P mvim &>/dev/null; then
+        mvim "$@" ;
+    else
+        vim "$@" ;
+    fi
+}
 function gz { gzip -v "$@" ; }
 function hgs { hg status "$@" ; }
 function hgqs { hg qstatus "$@" ; }

@@ -117,8 +117,8 @@ export FIGNORE=\~:.bak:.o
 # Shell
 ####################
 export DISPLAY=:0.0
-export EDITOR="mvim -f"
-export VISUAL="mvim -f"
+export EDITOR="gvim -f"
+export VISUAL="gvim -f"
 export HISTFILESIZE=10000
 export HISTCONTROL=ignoredups
 
