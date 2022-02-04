@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -v $__processed_common ]; then
+if [ -n ${__processed_common+1} ]; then
     __log_info() {
         echo " [INFO]  - ${1}"
     }
