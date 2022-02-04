@@ -117,8 +117,8 @@ export FIGNORE=\~:.bak:.o
 # Shell
 ####################
 export DISPLAY=:0.0
-export EDITOR="gvim -f"
-export VISUAL="gvim -f"
+export EDITOR="vim -f"
+export VISUAL="vim -f"
 export HISTFILESIZE=10000
 export HISTCONTROL=ignoredups
 
@@ -159,18 +159,6 @@ if type -P go &>/dev/null; then
     export GOPATH
     export PATH="${PATH}:${GOPATH}/bin"
 fi
-
-####################
-# Network
-####################
-#export ftp_passive=1
-#export CVS_RSH=ssh
-
-####################
-# IRC
-####################
-# export IRCSERVER='irc.us.freenode.net:6667'
-# export IRCNICK='schlosna'
 
 ####################
 # Screen
