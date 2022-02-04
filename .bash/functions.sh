@@ -84,7 +84,6 @@ function gz { gzip -v "$@" ; }
 function hgs { hg status "$@" ; }
 function hgqs { hg qstatus "$@" ; }
 function hlog { git log --date-order --all --graph --format="%C(green)%H%C(reset) %C(yellow)%an%C(reset) %C(cyan bold)%aI%C(reset)%C(red bold)%d%C(reset) %s %C(cyan bold)%N%C(reset)" "$@" ; }
-function idea { ./gradlew "$@" idea ; open *.ipr ; }
 function jboss { cd ${JBOSS_HOME} ; }
 function jc { jar cvf "$1.jar" "$1" ; }
 function jenv-home { export JAVA_HOME=$(jenv javahome); echo "JAVA_HOME=${JAVA_HOME}" ; }
@@ -106,6 +105,13 @@ function manp { man -t "$@" | open -f -a Skim ; }
 function markdown { python -m markdown -x footnotes "$@" ; }
 function md2html { markdown "$1" > "$1.html"; open "$1.html" ; }
 function mysqlctl { sudo /opt/local/etc/LaunchDaemons/org.macports.mysql5/mysql5.wrapper "$@" ; }
+function nice-diff {
+    if type -P diff-so-fancy &>/dev/null; then
+        diff-so-fancy "$@" ;
+    else
+        diff "$@" ;
+    fi
+}
 function o { open "$@" ; }
 function of { $EDITOR `f "$@"` ; }
 function pc { pwd | tr -d "\n" | pbcopy ; }
@@ -155,11 +161,78 @@ function up { cd ..; ls ; }
 function viewgz { tar tfz "$@" ; }
 function wgetall { wget -r -nd -np -l1 -A "*.$2" "$1" ; }
 function which { type -a "$@" ; }
-function write-locks { gw checkClassUniqueness --write-locks "$@" ; }
+function write-locks { gw --write-locks "$@" checkClassUniqueness checkUnusedConstraints verifyLocks ; git status ; }
 function yy () {
     opensc_path=/usr/local/lib/opensc-pkcs11.so
     eval $(ssh-agent -t 1d -P $opensc_path)
     ssh-add -s $opensc_path
+}
+
+function sshagent_findsockets {
+    find "$TEMPDIR" -uid $(id -u) -type s -name agent.\* 2>/dev/null
+}
+
+function sshagent_testsocket {
+    if [ ! -x "$(which ssh-add)" ] ; then
+        echo "ssh-add is not available; agent testing aborted"
+        return 1
+    fi
+
+    if [ X"$1" != X ] ; then
+        export SSH_AUTH_SOCK=$1
+    fi
+
+    if [ X"$SSH_AUTH_SOCK" = X ] ; then
+        return 2
+    fi
+
+    if [ -S $SSH_AUTH_SOCK ] ; then
+        ssh-add -l > /dev/null
+        if [ $? = 2 ] ; then
+            echo "Socket $SSH_AUTH_SOCK is dead!  Deleting!"
+            rm -f $SSH_AUTH_SOCK
+            return 4
+        else
+            echo "Found ssh-agent $SSH_AUTH_SOCK"
+            return 0
+        fi
+    else
+        echo "$SSH_AUTH_SOCK is not a socket!"
+        return 3
+    fi
+}
+
+function sshagent_init {
+    # ssh agent sockets can be attached to a ssh daemon process or an
+    # ssh-agent process.
+
+    AGENTFOUND=0
+
+    # Attempt to find and use the ssh-agent in the current environment
+    if sshagent_testsocket ; then AGENTFOUND=1 ; fi
+
+    # If there is no agent in the environment, search $TEMPDIR for
+    # possible agents to reuse before starting a fresh ssh-agent
+    # process.
+    if [ $AGENTFOUND = 0 ] ; then
+        for agentsocket in $(sshagent_findsockets) ; do
+            if [ $AGENTFOUND != 0 ] ; then break ; fi
+            if sshagent_testsocket $agentsocket ; then AGENTFOUND=1 ; fi
+        done
+    fi
+
+    # If at this point we still haven't located an agent, it's time to
+    # start a new one
+    if [ $AGENTFOUND = 0 ] ; then
+        eval `ssh-agent -s`
+    fi
+
+    # Clean up
+    unset AGENTFOUND
+    unset agentsocket
+
+    # Finally, show what keys are currently in the agent
+    ssh-add -l
 }
 
 complete -F _known_hosts cpr
