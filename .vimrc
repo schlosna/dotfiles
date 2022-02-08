@@ -116,7 +116,7 @@ else
 endif
 
 "colorscheme dave
-colorscheme pyte
+"colorscheme pyte
 "colorscheme solarized
 
 "From http://use.perl.org/~hanekomu/journal/34741
