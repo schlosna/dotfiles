@@ -9,9 +9,10 @@ __log_debug "Begin reading ${HOME}/.bash/path.sh"
 ####################
 
 # Home brew prefix (i.e `brew --prefix`)
-[ -d "/usr/local/" ] && BREW_HOME=/usr/local
-[ -d "/opt/brew/" ] && BREW_HOME=/opt/brew
-export BREW_HOME=${BREW_HOME:-/usr/local}
+[ -x "/usr/local/bin/brew" ] && BREW_HOME=/usr/local
+[ -x "/opt/brew/bin/brew" ] && BREW_HOME=/opt/brew
+[ -x "/opt/homebrew/bin/brew" ] && BREW_HOME=/opt/homebrew
+export BREW_HOME=${BREW_HOME:-/opt/homebrew}
 __log_debug "Using BREW_HOME=${BREW_HOME}"
 
 ####################
@@ -28,15 +29,16 @@ fi
 ####################
 
 __log_debug "Original PATH=${PATH}"
-PATH="/opt/local/bin:${PATH}"
-PATH="/usr/local/bin:${PATH}"
+PATH="${BREW_HOME}/opt/curl/bin:${PATH}"
 PATH="${BREW_HOME}/opt/curl/bin:${PATH}"
 PATH="${BREW_HOME}/opt/ant@1.9/bin:${PATH}"
+PATH="${BREW_HOME}/share/npm/bin:${PATH}"
+PATH="${HOME}/.jenv/bin:${PATH}"
+PATH="/opt/local/bin:${PATH}"
+PATH="/usr/local/bin:${PATH}"
+PATH="${HOME}/bin:${PATH}"
 PATH="${BREW_HOME}/bin:${PATH}"
 PATH="${BREW_HOME}/sbin:${PATH}"
-PATH="${PATH}:${HOME}/bin"
-PATH="${PATH}:${HOME}/.jenv/bin"
-PATH="${PATH}:${BREW_HOME}/share/npm/bin"
 
 export PATH
 __log_debug "PATH=${PATH}"
