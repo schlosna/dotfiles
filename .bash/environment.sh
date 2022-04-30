@@ -160,23 +160,6 @@ if type -P go &>/dev/null; then
     export PATH="${PATH}:${GOPATH}/bin"
 fi
 
-####################
-# Screen
-####################
-if [ "$TERM" = "screen" -a ! "$SHOWED_SCREEN_MESSAGE" = "true" ]; then
-    detached_screens=$(screen -list | grep Detached)
-    if [ ! -z "$detached_screens" ]; then
-        echo "+---------------------------------------+"
-        echo "| Detached screens are available:       |"
-        echo "$detached_screens"
-        echo "+---------------------------------------+"
-        #        else
-        # echo "[ screen is activated ]"
-    fi
-    export SHOWED_SCREEN_MESSAGE="true"
-fi
-
-
 # From http://pastebin.com/m64be26a5 via http://reddit.com/info/697cu/comments/
 # Set the terminal type.
 case $TERM in
