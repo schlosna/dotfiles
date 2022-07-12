@@ -105,6 +105,11 @@
 [pager]
 	commit = false
 
+[difftool "mvimdiff"]
+	cmd = mvim -f -d \"$LOCAL\" \"$REMOTE\"
+[mergetool "mvimdiff"]
+	cmd = mvim -f -d -c '4wincmd w | wincmd J' \"$LOCAL\" \"$BASE\" \"$REMOTE\" \"$MERGED\"
+
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	algorithm = patience
@@ -120,17 +125,23 @@
 	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
 	trustExitCode = true
 
+[difftool "vscode"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+[mergetool "vscode"]
+	cmd = code --wait $MERGED
+
 [diff]
-	tool = Kaleidoscope
+	tool = mvimdiff
 	#algorithm = patience
 	compactionHeuristic = true
 [difftool]
 	prompt = false
+
+[merge]
+	tool = vscode
+	conflictstyle = diff3
 [mergetool]
 	prompt = false
-[merge]
-	tool = Kaleidoscope
-	conflictstyle = diff3
 
 [filter "media"]
 	clean = git-media-clean %f
@@ -150,3 +161,7 @@
 	newNormal = green bold
 	newHighlight = green bold 22
 
+[init]
+	defaultBranch = develop
+[submodule]
+	recurse = true
