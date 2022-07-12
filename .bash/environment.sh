@@ -155,7 +155,9 @@ if type -P go &>/dev/null; then
     if [ ! -d "${GOPATH}" ]; then
         GOPATH="$(go env GOPATH)"
     fi
-    mkdir -p "${GOPATH}"
+    if [ ! -d "${GOPATH}" ] && [ ! -L "${GOPATH}" ]; then
+        mkdir -p "${GOPATH}"
+    fi
     export GOPATH
     export PATH="${PATH}:${GOPATH}/bin"
 fi
