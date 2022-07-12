@@ -86,7 +86,7 @@ function hgqs { hg qstatus "$@" ; }
 function hlog { git log --date-order --all --graph --format="%C(green)%H%C(reset) %C(yellow)%an%C(reset) %C(cyan bold)%aI%C(reset)%C(red bold)%d%C(reset) %s %C(cyan bold)%N%C(reset)" "$@" ; }
 function jboss { cd ${JBOSS_HOME} ; }
 function jc { jar cvf "$1.jar" "$1" ; }
-function jenv-home { export JAVA_HOME=$(jenv javahome); echo "JAVA_HOME=${JAVA_HOME}" ; }
+function jenv-home { export JAVA_HOME=$(jenv javahome); echo "JAVA_HOME=${JAVA_HOME}" ; java -version; }
 function jslint {
     gjslint "$@";
     jshint "$@";
