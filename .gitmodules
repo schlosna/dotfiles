@@ -40,9 +40,6 @@
 [submodule ".vim/bundle/nerdcommenter"]
 	path = .vim/bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
-[submodule ".vim/bundle/pyte"]
-	path = .vim/bundle/pyte
-	url = https://github.com/vim-scripts/pyte.git
 [submodule ".vim/bundle/runzip"]
 	path = .vim/bundle/runzip
 	url = https://github.com/vim-scripts/runzip
@@ -91,6 +88,9 @@
 [submodule ".vim/bundle/vim-powerline"]
 	path = .vim/bundle/vim-powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
+[submodule ".vim/bundle/vim-pyte"]
+	path = .vim/bundle/vim-pyte
+	url = https://github.com/therubymug/vim-pyte.git
 [submodule ".vim/bundle/vim-sensible"]
 	path = .vim/bundle/vim-sensible
 	url = https://github.com/tpope/vim-sensible.git
