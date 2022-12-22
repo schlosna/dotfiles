@@ -17,6 +17,7 @@ alias gw="gw --parallel "
 alias host="host -a "
 alias ln="ln -s "
 alias pstree="pstree -w "
+alias tmux="tmux -u"
 
 complete -o bashdefault -o default -o nospace -F __git_wrap__git_main g 2>/dev/null \
     || complete -o default -o nospace -F __git_wrap__git_main g

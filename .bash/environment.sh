@@ -121,6 +121,8 @@ export EDITOR="vim -f"
 export VISUAL="vim -f"
 export HISTFILESIZE=10000
 export HISTCONTROL=ignoredups
+export LANG=en_US.UTF-8
+export LC_ALL=C
 
 # Mail
 export MAIL=/var/mail/$USER
@@ -151,7 +153,11 @@ if [ -d "${BREW_HOME}/opt/readline/include" ]; then
 fi
 
 if type -P go &>/dev/null; then
-    GOPATH="${DEVELOPMENT_DIR}/go"
+    SRC_HOME="/Volumes/git"
+    if [ ! -d "${SRC_HOME}" ]; then
+        SRC_HOME="${HOME}/dev"
+    fi
+    GOPATH="${SRC_HOME}/go"
     if [ ! -d "${GOPATH}" ]; then
         GOPATH="$(go env GOPATH)"
     fi
@@ -316,17 +322,18 @@ local CLEAR="\001\e[0m\002"
             # set prompt color for general users
             PROMPT_COLOR="${PRE_COLOR}37;44m${POST_COLOR}"
         fi
-        #SIMPLE_PROMPT="[\u@\h] \w \$(parse_git_branch)\$"
+        #SIMPLE_PROMPT="[\u@\h] \w"
 
         if type __git_ps1 &>/dev/null; then
-            SIMPLE_PROMPT="\w$(__git_ps1 ' (%s)') \$"
+            SIMPLE_PROMPT="\w\$(__git_ps1 ' (%s)') \$"
         else
             SIMPLE_PROMPT="[${USER}@\h:\W]\$"
         fi
         #PS1="${PRE_COLOR}${PROMPT_COLOR}${SIMPLE_PROMPT}${POST_COLOR}${DEFAULT} "
-        #PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\001\033[m\002${POST_COLOR}${DEFAULT} "
-        PS1="${TITLEBAR}${PROMPT_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}m${POST_COLOR}${DEFAULT} "
-        #PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\001\033[m\002${POST_COLOR}${DEFAULT} "
+        #PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\[\033[m\]${POST_COLOR}${DEFAULT} "
+        #PS1="${TITLEBAR}${PROMPT_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}m${POST_COLOR}${DEFAULT} "
+        PS1="${PROMPT_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}${POST_COLOR}${DEFAULT} "
+        #PS1="${TITLEBAR}${PRE_COLOR}${PROMPT_COLOR}${POST_COLOR}${SIMPLE_PROMPT}${PRE_COLOR}\[\033[m\]${POST_COLOR}${DEFAULT} "
         #PS1="${TITLEBAR}[${GREEN}${USER}@\h:\W${YELLOW}$(__git_ps1 ' (%s)')${LIGHT_GRAY}${CLEAR}]\\$ "
     else
         PS1="${SIMPLE_PROMPT} "
