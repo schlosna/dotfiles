@@ -21,19 +21,24 @@ __log_debug "Using BREW_HOME=${BREW_HOME}"
 
 if [ -f "/usr/libexec/java_home" ]; then
     export JAVA_8_HOME="$(/usr/libexec/java_home -v 1.8)"
-    export JDK8_HOME="${JAVA_8_HOME}"
+    export JAVA_11_HOME="$(/usr/libexec/java_home -v 11)"
+    export JAVA_15_HOME="$(/usr/libexec/java_home -v 15)"
+    export JAVA_17_HOME="$(/usr/libexec/java_home -v 17)"
 fi
+
+export PNPM_HOME="${HOME}/Library/pnpm"
 
 ####################
 # Executable Search Path
 ####################
 
 __log_debug "Original PATH=${PATH}"
-PATH="${BREW_HOME}/opt/curl/bin:${PATH}"
-PATH="${BREW_HOME}/opt/curl/bin:${PATH}"
 PATH="${BREW_HOME}/opt/ant@1.9/bin:${PATH}"
+PATH="${BREW_HOME}/opt/curl/bin:${PATH}"
+PATH="${BREW_HOME}/opt/python@3.11/libexec/bin:${PATH}"
 PATH="${BREW_HOME}/share/npm/bin:${PATH}"
 PATH="${HOME}/.jenv/bin:${PATH}"
+PATH="${PNPM_HOME}:${PATH}"
 PATH="/opt/local/bin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
 PATH="${HOME}/bin:${PATH}"

@@ -84,6 +84,10 @@ if type -P jenv &>/dev/null; then
     export JAVA_HOME=$(jenv javahome);
 fi
 
+if type -P direnv &>/dev/null; then
+    eval "$(direnv hook bash)";
+fi
+
 if type -P rbenv &>/dev/null; then
     eval "$(rbenv init -)";
 fi
