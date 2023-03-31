@@ -33,6 +33,7 @@ Temporary Items
 /.atom/packages
 /.bash_history
 /.bash_sessions
+/.bash/cloud.bash
 /.bash/tokens.bash
 /.cache
 /.cassandra/cqlsh_history
