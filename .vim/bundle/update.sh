@@ -6,6 +6,8 @@ do
         echo "~ $i ~" && \
         cd $i && \
         git pull && \
+        git status && \
         cd ..;
 done
 
+git status
