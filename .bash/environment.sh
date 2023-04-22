@@ -78,6 +78,7 @@ import "/opt/local/etc/bash_completion"
 export iterm2_hostname="$(hostname -f)"
 import "${HOME}/.bash/iterm2_shell_integration.bash" || import "${HOME}/.iterm2_shell_integration.bash"
 
+export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 import "${HOME}/.bash/.fzf.bash"
 
 if type -P jenv &>/dev/null; then
