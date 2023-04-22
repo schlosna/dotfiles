@@ -20,4 +20,3 @@ __log_debug "Finished reading ${HOME}/.bashrc"
 unset -f __log_info
 unset -f __log_debug
 unset -v __processed_common
-
