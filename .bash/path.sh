@@ -34,15 +34,17 @@ export PNPM_HOME="${HOME}/Library/pnpm"
 ####################
 
 __log_debug "Original PATH=${PATH}"
+# Prepend to PATH
 PATH="/usr/local/bin:${PATH}"
 PATH="/opt/local/bin:${PATH}"
 PATH="${HOME}/bin:${PATH}"
-PATH="${PATH}:${BREW_HOME}/bin"
-PATH="${PATH}:${BREW_HOME}/sbin"
-PATH="${PATH}:${HOME}/bin"
+PATH="${BREW_HOME}/bin:${PATH}"
+PATH="${BREW_HOME}/sbin:${PATH}"
+PATH="${HOME}/bin:${PATH}"
+# Append to PATH
 PATH="${PATH}:${HOME}/.jenv/bin"
 PATH="${PATH}:${BREW_HOME}/opt/coreutils/libexec/gnubin"
-for i in "${BREW_HOME}"/opt/*/libexec/gnubin; do PATH="$i:${PATH}"; done
+for i in "${BREW_HOME}"/opt/*/libexec/gnubin; do PATH="${PATH}:${i}"; done
 PATH="${PATH}:${BREW_HOME}/share/npm/bin"
 PATH="${PATH}:${BREW_HOME}/opt/ant@1.9/bin"
 PATH="${PATH}:${BREW_HOME}/opt/curl/bin"
