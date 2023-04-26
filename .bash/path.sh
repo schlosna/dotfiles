@@ -20,10 +20,11 @@ __log_debug "Using BREW_HOME=${BREW_HOME}"
 ####################
 
 if [ -f "/usr/libexec/java_home" ]; then
-    export JAVA_8_HOME="$(/usr/libexec/java_home -v 1.8)"
-    export JAVA_11_HOME="$(/usr/libexec/java_home -v 11)"
-    export JAVA_15_HOME="$(/usr/libexec/java_home -v 15)"
-    export JAVA_17_HOME="$(/usr/libexec/java_home -v 17)"
+    JAVA_8_HOME="$(/usr/libexec/java_home -v 1.8)"
+    JAVA_11_HOME="$(/usr/libexec/java_home -v 11)"
+    JAVA_15_HOME="$(/usr/libexec/java_home -v 15)"
+    JAVA_17_HOME="$(/usr/libexec/java_home -v 17)"
+    export JAVA_8_HOME JAVA_11_HOME JAVA_15_HOME JAVA_17_HOME
 fi
 
 export PNPM_HOME="${HOME}/Library/pnpm"
@@ -33,22 +34,21 @@ export PNPM_HOME="${HOME}/Library/pnpm"
 ####################
 
 __log_debug "Original PATH=${PATH}"
-PATH="${BREW_HOME}/opt/ant@1.9/bin:${PATH}"
-PATH="${BREW_HOME}/opt/curl/bin:${PATH}"
-PATH="${BREW_HOME}/opt/python@3.11/libexec/bin:${PATH}"
-PATH="${BREW_HOME}/share/npm/bin:${PATH}"
-PATH="${HOME}/.jenv/bin:${PATH}"
-PATH="${PNPM_HOME}:${PATH}"
-PATH="/opt/local/bin:${PATH}"
 PATH="/usr/local/bin:${PATH}"
+PATH="/opt/local/bin:${PATH}"
 PATH="${HOME}/bin:${PATH}"
-PATH="${BREW_HOME}/bin:${PATH}"
-PATH="${BREW_HOME}/sbin:${PATH}"
-for i in ${BREW_HOME}/opt/*/libexec/gnubin; do PATH="$i:${PATH}"; done
-PATH="${BREW_HOME}/opt/coreutils/libexec/gnubin:${PATH}"
+PATH="${PATH}:${BREW_HOME}/bin"
+PATH="${PATH}:${BREW_HOME}/sbin"
 PATH="${PATH}:${HOME}/bin"
 PATH="${PATH}:${HOME}/.jenv/bin"
+PATH="${PATH}:${BREW_HOME}/opt/coreutils/libexec/gnubin"
+for i in "${BREW_HOME}"/opt/*/libexec/gnubin; do PATH="$i:${PATH}"; done
 PATH="${PATH}:${BREW_HOME}/share/npm/bin"
+PATH="${PATH}:${BREW_HOME}/opt/ant@1.9/bin"
+PATH="${PATH}:${BREW_HOME}/opt/curl/bin"
+PATH="${PATH}:${BREW_HOME}/opt/python@3.11/libexec/bin"
+PATH="${PATH}:${BREW_HOME}/share/npm/bin"
+PATH="${PATH}:${PNPM_HOME}"
 
 export PATH
 __log_debug "PATH=${PATH}"
