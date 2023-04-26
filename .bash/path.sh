@@ -44,6 +44,11 @@ PATH="/usr/local/bin:${PATH}"
 PATH="${HOME}/bin:${PATH}"
 PATH="${BREW_HOME}/bin:${PATH}"
 PATH="${BREW_HOME}/sbin:${PATH}"
+for i in ${BREW_HOME}/opt/*/libexec/gnubin; do PATH="$i:${PATH}"; done
+PATH="${BREW_HOME}/opt/coreutils/libexec/gnubin:${PATH}"
+PATH="${PATH}:${HOME}/bin"
+PATH="${PATH}:${HOME}/.jenv/bin"
+PATH="${PATH}:${BREW_HOME}/share/npm/bin"
 
 export PATH
 __log_debug "PATH=${PATH}"
@@ -51,7 +56,11 @@ __log_debug "PATH=${PATH}"
 ####################
 # Manual Search Path
 ####################
-export MANPATH="/usr/local/share/man:${BREW_HOME}/share/man:/usr/share/man:${MANPATH}"
+MANPATH="/usr/local/share/man:${MANPATH}"
+MANPATH="${MANPATH}:${BREW_HOME}/share/man"
+MANPATH="${MANPATH}:${BREW_HOME}/opt/coreutils/libexec/gnuman"
+MANPATH="${MANPATH}:/usr/share/man"
+export MANPATH
 __log_debug "MANPATH=${MANPATH}"
 
 __log_debug "Finished reading ${HOME}/.bash/path.sh"
