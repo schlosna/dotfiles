@@ -82,18 +82,18 @@ import "${HOME}/.bash/iterm2_shell_integration.bash" || import "${HOME}/.iterm2_
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 import "${HOME}/.bash/.fzf.bash"
 
-if type -P jenv &>/dev/null; then
-    eval "$(jenv init - --no-rehash)";
-    JAVA_HOME=$(jenv javahome);
-    export JAVA_HOME
-fi
-
 if type -P direnv &>/dev/null; then
     eval "$(direnv hook bash)";
 fi
 
 if type -P rbenv &>/dev/null; then
     eval "$(rbenv init -)";
+fi
+
+if type -P jenv &>/dev/null; then
+    eval "$(jenv init - --no-rehash)";
+    JAVA_HOME=$(jenv javahome);
+    export JAVA_HOME
 fi
 
 import "${HOME}/.gvm/scripts/gvm"
@@ -335,7 +335,7 @@ local CLEAR="\001\e[0m\002"
 }
 
 export GIT_PS1_SHOW_DIRTYSTATE=1
-GIT_PROMPT_ONLY_IN_REPO=1
+export GIT_PROMPT_ONLY_IN_REPO=1
 export PROMPT_COMMAND="make-prompt; ${PROMPT_COMMAND}"
 __log_debug "PROMPT_COMMAND = '${PROMPT_COMMAND}'"
 __log_debug "PS1 = '${PS1}'"

@@ -42,8 +42,6 @@ PATH="${BREW_HOME}/bin:${PATH}"
 PATH="${BREW_HOME}/sbin:${PATH}"
 PATH="${HOME}/bin:${PATH}"
 # Append to PATH
-PATH="${PATH}:${HOME}/.jenv/bin"
-PATH="${PATH}:${BREW_HOME}/opt/coreutils/libexec/gnubin"
 for i in "${BREW_HOME}"/opt/*/libexec/gnubin; do PATH="${PATH}:${i}"; done
 PATH="${PATH}:${BREW_HOME}/share/npm/bin"
 PATH="${PATH}:${BREW_HOME}/opt/ant@1.9/bin"
