@@ -35,11 +35,10 @@ export PNPM_HOME="${HOME}/Library/pnpm"
 
 __log_debug "Original PATH=${PATH}"
 # Prepend to PATH
-PATH="/usr/local/bin:${PATH}"
-PATH="/opt/local/bin:${PATH}"
-PATH="${HOME}/bin:${PATH}"
 PATH="${BREW_HOME}/bin:${PATH}"
 PATH="${BREW_HOME}/sbin:${PATH}"
+PATH="/usr/local/bin:${PATH}"
+PATH="/opt/local/bin:${PATH}"
 PATH="${HOME}/bin:${PATH}"
 # Append to PATH
 for i in "${BREW_HOME}"/opt/*/libexec/gnubin; do PATH="${PATH}:${i}"; done
