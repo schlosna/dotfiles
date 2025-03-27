@@ -43,6 +43,9 @@
 [submodule ".vim/bundle/nerdcommenter"]
 	path = .vim/bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule ".vim/bundle/papercolor-theme"]
+	path = .vim/bundle/papercolor-theme
+	url = https://github.com/NLKNguyen/papercolor-theme.git
 [submodule ".vim/bundle/runzip"]
 	path = .vim/bundle/runzip
 	url = https://github.com/vim-scripts/runzip

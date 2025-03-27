@@ -110,11 +110,11 @@ if exists('$TMUX')  " Support resizing in tmux
   set ttymouse=xterm2
 endif
 
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
+"if has('gui_running')
+"    set background=light
+"else
+"    set background=dark
+"endif
 
 "colorscheme dave
 "colorscheme pyte
