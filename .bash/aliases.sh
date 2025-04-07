@@ -14,9 +14,13 @@ alias e="gvim "
 alias g="git "
 alias givm="gvim "
 alias host="host -a "
+alias k="kubectl "
 alias ln="ln -s "
 alias pstree="pstree -w "
+alias terraform="tofu "
 alias tmux="tmux -u"
+
+complete -F __start_kubectl k
 
 complete -o bashdefault -o default -o nospace -F __git_wrap__git_main g 2>/dev/null \
     || complete -o default -o nospace -F __git_wrap__git_main g

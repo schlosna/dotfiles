@@ -79,11 +79,16 @@ iterm2_hostname="$(hostname -f)"
 export iterm2_hostname
 import "${HOME}/.bash/iterm2_shell_integration.bash" || import "${HOME}/.iterm2_shell_integration.bash"
 
+if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
+    export TERM=xterm-256color
+fi
+
 export FZF_DEFAULT_COMMAND="rg --files --hidden --follow --glob '!.git'"
 import "${HOME}/.bash/.fzf.bash"
 
 if type -P direnv &>/dev/null; then
-    eval "$(direnv hook bash)";
+    # https://direnv.net/docs/hook.html
+    eval "$(direnv hook bash)"
 fi
 
 if type -P rbenv &>/dev/null; then
@@ -99,7 +104,7 @@ fi
 import "${HOME}/.gvm/scripts/gvm"
 import "${HOME}/.bash/cloud.bash"
 
-CURL_CA_BUNDLE="/etc/pki/tls/certs/ca-bundle.crt"
+CURL_CA_BUNDLE="/etc/ssl/certs/palantir-ca-certificates.crt"
 [ -f "${CURL_CA_BUNDLE}" ] && export CURL_CA_BUNDLE || unset CURL_CA_BUNDLE
 
 ####################

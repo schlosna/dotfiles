@@ -91,6 +91,7 @@ function jslint {
     gjslint "$@";
     jshint "$@";
 }
+function ksn { kubectl config set-context --current --namespace="$@" ; }
 function l { $LS -lchF $LS_OPTS "$@" ; }
 function launch { open -a "$@" ; }
 function lg { ll | grep -i "$@" ; }
