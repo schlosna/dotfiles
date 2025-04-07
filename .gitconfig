@@ -2,6 +2,7 @@
 	name = David Schlosnagle
 	email = davids@palantir.com
 	signingkey = F67B35C0221B9E42388C518247D86C27BE10D25F
+	#signingkey = 5CCB8B96AD09F61DE0701F4A0DF469CA6EDCC35A
 
 [credential]
 	helper = cache --timeout=3600
@@ -9,6 +10,12 @@
 [tag]
 	gpgsign = true
 	forceSignAnnotated = true
+
+[init]
+	defaultBranch = develop
+
+[submodule]
+	recurse = true
 
 [branch]
 	autosetuprebase = always
@@ -26,6 +33,7 @@
 	# to see why we use this convoluted syntax
 	#pager = less -+$LESS -SFRX -SR +'/^---'
 	pager = less --tabs=4 -RFX
+	fsmonitor = true
 
 [commit]
 	verbose = true
@@ -152,7 +160,7 @@
 	required = true
 	process = git-lfs filter-process
 [interactive]
-	diffFilter = diff-highlight
+	#diffFilter = diff-highlight
 [rerere]
 	enabled = 1
 [color "diff-highlight"]
@@ -161,7 +169,3 @@
 	newNormal = green bold
 	newHighlight = green bold 22
 
-[init]
-	defaultBranch = develop
-[submodule]
-	recurse = true
