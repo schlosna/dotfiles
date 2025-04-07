@@ -15,7 +15,7 @@
 	url = git@github.com:sjl/badwolf.git
 [submodule ".vim/bundle/bufexplorer"]
 	path = .vim/bundle/bufexplorer
-	url = git@github.com:cperl82/bufexplorer.git
+	url = git@github.com:jlanzarotta/bufexplorer.git
 [submodule ".vim/bundle/ctrlp-funky"]
 	path = .vim/bundle/ctrlp-funky
 	url = git@github.com:tacahiroy/ctrlp-funky.git
@@ -106,6 +106,9 @@
 [submodule ".vim/bundle/vim-sleuth"]
 	path = .vim/bundle/vim-sleuth
 	url = git@github.com:tpope/vim-sleuth.git
+[submodule ".vim/bundle/vim-solarized"]
+	path = .vim/bundle/vim-solarized
+	url = git@github.com:ericbn/vim-solarized.git
 [submodule ".vim/bundle/vim-surround"]
 	path = .vim/bundle/vim-surround
 	url = git@github.com:tpope/vim-surround.git
